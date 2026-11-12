@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Архив «Эльмо»</title>
+<meta name="description" content="Свод лора Girls' Frontline и Girls' Frontline 2: Exilium: мир, куклы и их права, нейрооблака, база «Эльмо», сюжет и досье кукол.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: сайт-архив лендшипа — тёмная обложка с полем коллапс-частиц и шкалой зон, липкая навигация, разделы с крупными номерами, досье в цветах отрядов */
+:root{
+  --bg:#eceff1; --panel:#ffffff; --panel2:#e1e6ea; --fg:#1b2228; --mute:#55626c; --line:#c5cdd3;
+  --accent:#b85c00; --accent-soft:#f6e3cd; --on-accent:#ffffff; --ghost:#d5dce1;
+  --hero-bg:#0e1317; --hero-bg2:#1a232b; --hero-fg:#eef2f4; --hero-mute:#9fb0bb; --hero-line:#33414c; --hero-accent:#ff9a3c;
+  --z-black:#17181b; --z-red:#b3261e; --z-yellow:#d9a400; --z-pur:#2c8f8a; --z-green:#3f8a3a; --z-white:#f7f8f9;
+  --z-on-dark:#ffffff; --z-on-light:#17181b;
+  --f-display:'Oswald','Arial Narrow',sans-serif; --f-body:'IBM Plex Sans','Segoe UI',Arial,sans-serif; --f-mono:'IBM Plex Mono',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#12171b; --panel:#1b2228; --panel2:#242d35; --fg:#e4e9ec; --mute:#97a4ad; --line:#34404a;
+  --accent:#ff9a3c; --accent-soft:#3a2a18; --on-accent:#17120b; --ghost:#232c33; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#12171b; --panel:#1b2228; --panel2:#242d35; --fg:#e4e9ec; --mute:#97a4ad; --line:#34404a;
+  --accent:#ff9a3c; --accent-soft:#3a2a18; --on-accent:#17120b; --ghost:#232c33; color-scheme:dark }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.62}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hero-bg)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.12;margin:0;font-weight:600}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--hero-bg) 30%,var(--hero-bg2));color:var(--hero-fg)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--hero-line) 1px,transparent 1px),linear-gradient(90deg,var(--hero-line) 1px,transparent 1px);background-size:56px 56px;opacity:.28;pointer-events:none;mask-image:linear-gradient(to bottom,#000,transparent 85%);-webkit-mask-image:linear-gradient(to bottom,#000,transparent 85%)}
+.hero .wrap{position:relative;z-index:1;padding-block:64px 0}
+.hero .eyebrow{color:var(--hero-mute)}
+.hero .eyebrow i{font-style:normal;color:var(--hero-accent)}
+.hero h1{font-size:clamp(3rem,11vw,7.5rem);text-transform:uppercase;letter-spacing:-.01em;margin-top:14px;line-height:.95}
+.hero h1 span{display:block;color:var(--hero-accent)}
+.hero p.lead{max-width:56ch;color:var(--hero-mute);margin:20px 0 0;font-size:1.08rem}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.cta a{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.08em;text-decoration:none;padding:11px 20px;border:1px solid var(--hero-accent);color:var(--hero-accent);transition:background .15s,color .15s}
+.cta a.main,.cta a:hover{background:var(--hero-accent);color:var(--hero-bg)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;margin-top:44px;border-top:1px solid var(--hero-line)}
+.stats div{padding:16px 16px 18px 0;min-width:0}
+.stats b{display:block;font-family:var(--f-display);font-size:2.2rem;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--hero-mute)}
+.scale{display:flex;font-family:var(--f-mono);font-size:.72rem;position:relative;z-index:1}
+.scale div{flex:1 1 0;min-width:0;padding:9px 8px;overflow:hidden}
+.scale b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scale small{opacity:.85;white-space:nowrap}
+.zb{background:var(--z-black);color:var(--z-on-dark)}.zr{background:var(--z-red);color:var(--z-on-dark)}
+.zy{background:var(--z-yellow);color:var(--z-on-light)}.zp{background:var(--z-pur);color:var(--z-on-dark)}
+.zg{background:var(--z-green);color:var(--z-on-dark)}.zw{background:var(--z-white);color:var(--z-on-light)}
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hero-bg);border-bottom:2px solid var(--hero-accent)}
+nav .wrap{display:flex;gap:2px;overflow-x:auto;padding-block:6px;align-items:center}
+nav .brand{font-family:var(--f-display);font-weight:600;color:var(--hero-accent);text-transform:uppercase;letter-spacing:.08em;margin-right:10px;flex:none}
+nav a{flex:none;font-family:var(--f-display);font-size:.92rem;text-transform:uppercase;letter-spacing:.07em;text-decoration:none;color:var(--hero-fg);padding:7px 11px;border-bottom:2px solid transparent}
+nav a:hover,nav a.on{color:var(--hero-accent);border-bottom-color:var(--hero-accent)}
+/* sections */
+section{padding-block:64px 12px;scroll-margin-top:56px;position:relative}
+section>.eyebrow{display:flex;align-items:center;gap:12px}
+section>.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+section>h2{font-size:clamp(2rem,5.5vw,3.4rem);text-transform:uppercase;margin:10px 0 22px;position:relative}
+section>h2::after{content:"";display:block;width:72px;height:5px;background:var(--accent);margin-top:12px}
+.prose{max-width:70ch}
+.prose p{margin:0 0 14px}
+.prose>p:first-child{font-size:1.08rem}
+.prose h3{font-size:1.3rem;margin:28px 0 8px;display:flex;align-items:center;gap:10px}
+.prose h3::before{content:"";width:10px;height:10px;background:var(--accent);flex:none;transform:rotate(45deg)}
+.note{font-size:.9rem;color:var(--mute);border-left:3px solid var(--line);padding-left:12px;max-width:70ch;margin:14px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin:22px 0}
+.cell{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--accent);padding:18px;min-width:0;transition:transform .15s}
+.cell:hover{transform:translateY(-3px)}
+.cell h3{font-size:1.15rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:.02em}
+.cell p{margin:0;font-size:.95rem}
+.cell ul{margin:0;padding-left:18px;font-size:.95rem;display:grid;gap:6px}
+/* timeline */
+.tl{display:grid;margin:24px 0;max-width:78ch;border-left:2px solid var(--line);padding-left:0}
+.tl div{display:grid;grid-template-columns:6.4rem 1fr;gap:14px;padding:10px 0 10px 22px;position:relative}
+.tl div::before{content:"";position:absolute;left:-7px;top:17px;width:12px;height:12px;background:var(--bg);border:2px solid var(--accent);transform:rotate(45deg)}
+.tl b{font-family:var(--f-display);font-size:1.15rem;font-weight:500;color:var(--accent);font-variant-numeric:tabular-nums}
+.tl span{min-width:0}
+/* zones */
+.zones{display:grid;gap:10px;margin:22px 0}
+.zone{display:grid;grid-template-columns:minmax(0,12rem) 1fr;border:1px solid var(--line);background:var(--panel)}
+.zone .tag{padding:14px;font-family:var(--f-display);font-size:1.15rem;text-transform:uppercase}
+.zone .tag small{display:block;font-family:var(--f-mono);font-size:.72rem;text-transform:none;opacity:.85;margin-top:4px}
+.zone p{margin:0;padding:14px 16px;font-size:.95rem;min-width:0}
+@media (max-width:560px){.zone{grid-template-columns:1fr}}
+/* elmo band */
+.band{background:var(--hero-bg);color:var(--hero-fg);margin-top:40px}
+.band section>.eyebrow{color:var(--hero-mute)}
+.band section>.eyebrow::after{background:var(--hero-line)}
+.band section>h2::after,.band .prose h3::before{background:var(--hero-accent)}
+.band .prose strong{color:var(--hero-accent)}
+.band section{padding-bottom:56px}
+.decks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:1px;background:var(--hero-line);border:1px solid var(--hero-line);margin:8px 0 26px}
+.decks div{background:var(--hero-bg2);padding:14px;min-width:0}
+.decks b{display:block;font-family:var(--f-display);text-transform:uppercase;letter-spacing:.04em;font-weight:500;color:var(--hero-accent)}
+.decks span{font-size:.88rem;color:var(--hero-mute)}
+/* chapters */
+.story{border-left:2px solid var(--line);margin-left:6px}
+.ch{display:grid;grid-template-columns:minmax(0,10rem) 1fr;gap:20px;padding:18px 0 18px 24px;max-width:94ch;position:relative}
+.ch::before{content:"";position:absolute;left:-8px;top:24px;width:14px;height:14px;background:var(--accent);transform:rotate(45deg)}
+.ch .k{font-family:var(--f-mono);font-size:.8rem;color:var(--accent)}
+.ch .k strong{display:block;font-family:var(--f-display);font-size:1.25rem;color:var(--fg);font-weight:500;margin-top:2px;text-transform:uppercase;line-height:1.15}
+.ch p{margin:0 0 10px;min-width:0}
+@media (max-width:640px){.ch{grid-template-columns:1fr;gap:6px}}
+/* dolls */
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
+.tools input{font:inherit;padding:10px 14px;border:1px solid var(--line);background:var(--panel);color:var(--fg);min-width:0;flex:1 1 240px;max-width:380px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.chips button{font-family:var(--f-mono);font-size:.78rem;padding:7px 11px;border:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer;display:flex;align-items:center;gap:7px}
+.chips button i{width:9px;height:9px;background:hsl(var(--h) 60% 48%);transform:rotate(45deg);flex:none}
+.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+#count{font-family:var(--f-mono);font-size:.8rem;color:var(--mute)}
+.dolls{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:16px}
+.doll{background:var(--panel);border:1px solid var(--line);border-left:4px solid hsl(var(--h) 60% 48%);padding:16px;min-width:0;display:flex;flex-direction:column;gap:10px;transition:transform .15s,box-shadow .15s}
+.doll:hover{transform:translateY(-3px);box-shadow:0 10px 24px -14px hsl(var(--h) 60% 30%)}
+.doll .head{display:flex;gap:12px;align-items:center;min-width:0}
+.doll .mono{flex:none;width:52px;height:52px;display:grid;place-items:center;background:hsl(var(--h) 55% 38%);color:#fff;font-family:var(--f-display);font-size:1.35rem;font-weight:600;letter-spacing:.04em;clip-path:polygon(0 0,100% 0,100% 72%,72% 100%,0 100%)}
+.doll h3{font-size:1.45rem;text-transform:uppercase;letter-spacing:.02em;min-width:0;overflow-wrap:anywhere}
+.doll .sq{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.doll .meta{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--f-mono);font-size:.72rem}
+.doll .meta span{padding:2px 7px;background:var(--panel2);color:var(--fg)}
+.doll p{margin:0;font-size:.94rem}
+.empty{color:var(--mute);padding:20px 0}
+footer{background:var(--hero-bg);color:var(--hero-mute);font-size:.88rem;margin-top:56px}
+footer .wrap{padding-block:40px 56px}
+footer .eyebrow{color:var(--hero-accent)}
+footer a{color:var(--hero-fg)}
+footer ul{padding-left:18px;margin:10px 0 16px}
+footer .sign{font-family:var(--f-display);font-size:1.6rem;text-transform:uppercase;color:var(--hero-fg);margin-bottom:14px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.cell,.doll{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">Girls' Frontline <i>◆</i> Exilium <i>◆</i> полный свод лора</div>
+    <h1>Архив <span>«Эльмо»</span></h1>
+    <p class="lead">Мир после коллапса, тайна реликвий, устройство тактических кукол и их нейрооблаков, сухопутный корабль Командира и досье на каждую, кто поднялся на борт. Осторожно: спойлеры ко всему сюжету.</p>
+    <div class="cta"><a class="main" href="#dolls">Досье кукол</a><a href="#gfl2">Сюжет Exilium</a><a href="#elmo">База «Эльмо»</a></div>
+    <div class="stats">
+      <div><b>71</b><span>досье</span></div>
+      <div><b>12</b><span>отрядов</span></div>
+      <div><b>6</b><span>зон заражения</span></div>
+      <div><b>1905–2112</b><span>хронология</span></div>
+    </div>
+  </div>
+  <div class="scale" aria-label="Шкала зон заражения, FBA">
+    <div class="zb"><b>Чёрная</b><small>&gt;10 000</small></div>
+    <div class="zr"><b>Красная</b><small>150–10 000</small></div>
+    <div class="zy"><b>Жёлтая</b><small>1–150</small></div>
+    <div class="zp"><b>Очистка</b><small>между</small></div>
+    <div class="zg"><b>Зелёная</b><small>&lt;1</small></div>
+    <div class="zw"><b>Белая</b><small>0 FBA</small></div>
+  </div>
+</header>
+
+<nav aria-label="Разделы"><div class="wrap">
+  <span class="brand">◆ Эльмо</span><a href="#world">Мир</a><a href="#zones">Зоны</a><a href="#cloud">Нейрооблака</a><a href="#rights">Права кукол</a><a href="#magrasea">Маграсея</a><a href="#factions">Фракции</a><a href="#elmo">«Эльмо»</a><a href="#people">Персоны</a><a href="#gfl1">Сюжет GFL</a><a href="#gfl2">Сюжет Exilium</a><a href="#dolls">Куклы</a><a href="#src">Источники</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="world">
+  <div class="eyebrow">Раздел 1</div>
+  <h2>Мир и его история</h2>
+  <div class="prose">
+    <p>Вселенная Girls' Frontline расходится с нашей историей в 1905 году, когда Российская империя наткнулась в сибирской тайге на руины древней внеземной цивилизации. Попытка извлечь артефакты дестабилизировала реактор сооружения и закончилась взрывом, который мы знаем как Тунгусский феномен. С этого момента всё важное в мире вращается вокруг <strong>реликвий</strong> и технологий, которые из них добывают.</p>
+    <p>После Второй мировой СССР тайно забрал немецкие наработки по реликвиям, включая объект «Уркунде-01», и к 1950 году запустил проект «Морская звезда» (Starfish). США обнаружили свои руины лишь пять лет спустя. Работавшие на объектах люди начали заболевать <strong>ELID</strong> — «евроскай-синдромом низкой эмиссии»: мутациями, которые вызывает контакт организма с коллапс-жидкостью.</p>
+    <p>В 2030 году семеро школьников проникли в забытые руины на острове Бэйлань под Шанхаем. Спасательная операция закончилась подрывом, обрушением и выбросом огромного объёма коллапс-жидкости, которую ветер разнёс по планете. Население стало стремительно сокращаться, работать под открытым небом стало опасно, и спрос на роботов взлетел. Так скелетные автоматы за пару десятилетий превратились в андроидов военного класса — <strong>тактических кукол</strong> (T-Doll).</p>
+    <p>Борьба за пригодную землю привела в 2045 году к Третьей мировой. К 2050-му от сверхдержав остались тени, и мир вынужденно замер. В этом мире окрепли корпорация IOP Хавьера Виткина, её конкурент Sangvis Ferri и новая идеология — <strong>россартризм</strong>, выросшая из предсмертного послания бывшего главы Агентства ООН по реликвиям.</p>
+  </div>
+  <div class="tl">
+    <div><b>1905</b><span>Раскопки неизвестной реликвии в Восточной Европе и Сибири; Тунгусский взрыв.</span></div>
+    <div><b>1950</b><span>Советский проект «Морская звезда».</span></div>
+    <div><b>1961–1974</b><span>СССР создаёт первые «мороны», затем «пики» — оружие на реликтовых технологиях. В 1962-м на Бэйлане находят тело существа GAVIRUL; в 1974-м объект запечатывают.</span></div>
+    <div><b>1981</b><span>«Пики» впервые идут в бой в Афганистане. Подписан Договор об ограничении реликтовых вооружений.</span></div>
+    <div><b>1991–1992</b><span>Распад СССР; Конвенция о реликтовых технологиях. ООН создаёт Агентство по науке о реликвиях и запускает проект «Чёрная лилия и Белая роза» (признан провальным в 2012-м).</span></div>
+    <div><b>2003</b><span>Артур Хьюм публикует теорию тактических кукол. Научное сообщество её игнорирует.</span></div>
+    <div><b>2030</b><span>Инцидент на острове Бэйлань: коллапс-жидкость расходится по планете. Вторая корейская война, оставлена Токийская защищённая зона.</span></div>
+    <div><b>2031–2034</b><span>Основана Sangvis Ferri, возникает Неосоветский Союз, становится обитаемым Полый Город, построены первые автономные куклы. Смерть Редера Россартра рождает россартризм.</span></div>
+    <div><b>2035</b><span>«Северное сияние»: облака коллапс-жидкости накрывают Европу. На Украине основана IOP. В 2036-м выходит ALR-52P, первая скелетная кукла.</span></div>
+    <div><b>2043–2044</b><span>Появляется группа 90wish; IOP выпускает сервисную куклу «Нимфа»; гражданская война в Германии.</span></div>
+    <div><b>2045–2051</b><span>Третья мировая. Куклы сперва возят грузы, затем воюют. Официальный конец войны — июнь 2051-го.</span></div>
+    <div><b>2053–2058</b><span>Крюгер основывает Griffin & Kryuger (2053) и с 2054-го заменяет наёмников куклами. Активирована Элиза, создана 16Lab; сеть манекенов (2057), импринт ASST (2058), набор в «Проект Нейрооблако».</span></div>
+    <div><b>2060–2061</b><span>Проект объявлен успешным, но тайный инцидент стирает подопытных. Собран отряд AR, RO635 — первая кукла третьего поколения. Инцидент «Бабочка».</span></div>
+    <div><b>2062</b><span>Восстановлена ООН, принят Акт о правах кукол. Командир приходит в G&K, сектор S09.</span></div>
+    <div><b>2063</b><span>Собран Task Force DEFY. «Стирание» в Маграсее и события Project Neural Cloud.</span></div>
+    <div><b>2064</b><span>Великое отступление, инцидент в Палдиски, «Фейерверк» (3–4 октября), операция «Муромец» и падение Аверна (23 октября), битва за Франкфурт (ноябрь–декабрь). Создана URNC; куклы Командира получают свободу.</span></div>
+    <div><b>2065–2070</b><span>G&K распущена и урезана, расцвет охоты за головами, появляются Варяги, URNC и Неосоветский Союз сливаются. В 2070-м опубликованы спецификации третьего поколения.</span></div>
+    <div><b>2074</b><span>Март: BRIEF выдаёт заказ TASK-3115. 15 апреля начинается Exilium. Одесский и Львовский инциденты.</span></div>
+    <div><b>2078</b><span>Ряд стран выходит из URNC и вместе с Полым Городом образует Антарктический союз. В Берлине стартует проект «Три богини».</span></div>
+    <div><b>2089–2094</b><span>Первая антарктическая война; на её фоне — Reverse Collapse (2092).</span></div>
+    <div><b>2112</b><span>Начало Второй антарктической войны.</span></div>
+  </div>
+  <div class="grid2">
+    <div class="cell"><h3>Реликвии и Нирвана</h3><p>Реликвию может пробудить лишь носитель подходящей «подписи». В Exilium выясняется, что за реликтовыми «дверями» лежит Нирвана — архив знания вселенной, где обитает сущность, называемая Ясным Голосом. Вошедшие туда и вернувшиеся становятся «Благословенными».</p></div>
+    <div class="cell"><h3>ELID и буджумы</h3><p>К 2074 году людей лечат лучше, и главной угрозой стала заражённая фауна. Заражённых зовут «живыми остовами». Крупные мутанты классифицируются как буджумы (Boojum); Парадеус выращивает искусственных, жертвуя культистами.</p></div>
+    <div class="cell"><h3>Полностью иммунные</h3><p>Редчайшие люди, которых коллапс-излучение не убивает, — первой известной была Кавасаки Кадзуса. За ними охотятся все: их тканевая жидкость — недостающий компонент настоящей вакцины, а сами они — ключи к реликвиям.</p></div>
+    <div class="cell"><h3>Remolding Pattern</h3><p>Портативное устройство обратного коллапса, с которым Командира знакомит Персика. Позволяет кукле на время перестроить корпус: Дартур превращается в боевого меха, отряд Грозы получает собственные паттерны.</p></div>
+  </div>
+</section>
+
+<section id="zones">
+  <div class="eyebrow">Раздел 2</div>
+  <h2>Зоны заражения</h2>
+  <div class="prose"><p>Восточная Европа 2074 года поделена по уровню коллапс-излучения, который измеряют в FBA. Границы двигает Совместное соглашение о восстановлении заражённых регионов Европы: очистительные башни-«маяки» шаг за шагом отвоёвывают землю.</p></div>
+  <div class="zones">
+    <div class="zone"><div class="tag zb">Чёрная зона<small>Ground Zero · &gt;10 000 FBA</small></div><p>Ударный кратер в десяток километров. Грунт спёкся в стеклянные шпили, коллапс-бури уничтожают всё живое и электронное. Здесь стоит таинственная башня со входом в реликвию. Конечная цель программы очистки.</p></div>
+    <div class="zone"><div class="tag zr">Красная зона<small>150–10 000 FBA</small></div><p>Пустыни и ущелья с остекленевшей почвой. В низинах растут коллапс-эпифиллумы: они снижают фон вокруг себя, но в цветение резко его поднимают. Без защиты сюда не ходят ни люди, ни куклы.</p></div>
+    <div class="zone"><div class="tag zy">Жёлтая зона<small>фронтир · 1–150 FBA</small></div><p>Куклы передвигаются свободно, людям нужна защита. Здесь живут охотники за головами, Варяги, подпольные брокеры и обычные поселенцы; питьевую воду берут с глубины больше ста метров. Основное место действия Exilium.</p></div>
+    <div class="zone"><div class="tag zp">Зона очистки<small>W/E_год_номер</small></div><p>Полоса между жёлтой и зелёной, ядро «Новой западной кампании». Войска занимают уцелевшие здания, сносят аварийные и следят за проходом наёмников. Постоянных жителей нет.</p></div>
+    <div class="zone"><div class="tag zg">Зелёная зона<small>&lt;1 FBA</small></div><p>Недавно возвращённые земли: заводы, фермы и города-спутники с кодами вроде ODE-01 или CHE-02. Жителям вживляют ID-чипы; днём спутники пустуют, ночью светятся — рабочие вернулись со смен в белой зоне.</p></div>
+    <div class="zone"><div class="tag zw">Белая зона<small>0 FBA</small></div><p>Бывшие столицы и центры: Одесса, Львов, Киев. Вертикальные города с климат-контролем, лёгким метро внутри зданий и полным набором систем оповещения. У каждого своя власть и свой классовый уклад.</p></div>
+  </div>
+</section>
+
+<section id="cloud">
+  <div class="eyebrow">Раздел 3</div>
+  <h2>Куклы и нейрооблака</h2>
+  <div class="prose">
+    <p><strong>Нейрооблако</strong> (neural cloud) — совокупность модулей данных, в которых живёт сознание куклы; по определению из справочника Project Neural Cloud, по сути её «душа». Память, личность и боевые навыки — всё это части облака, а корпус остаётся носителем, который можно заменить.</p>
+    <h3>Что такое кукла</h3>
+    <p>Кукла — андроид под управлением ИИ. Изначально это была легко заменяемая военная огневая платформа; сегодня «куклой» называют только машину с нейрооблаком, а простые программируемые аппараты зовут автоматами и дроидами. Автономные куклы (A-Doll) — ранние боевые и гражданские модели, тактические (T-Doll) созданы для поля боя.</p>
+    <p>Облако физически хранится в нейроядре в торсе, у которого есть собственный запас энергии; память лежит в мемристорах. Сон или гибернация нужны, чтобы очищать кэш.</p>
+    <h3>Три поколения</h3>
+    <p><strong>Первое</strong> — военные рамы вроде серии ACD: по сути автономные куклы с оружием, часовые и пехота Третьей мировой. <strong>Второе</strong> (с 2054 года) — модульное шасси и <strong>протокол Зенера</strong>, разработка группы 90wish: куклы общаются напрямую, без мейнфрейма и спутника. В 2057-м к нему добавилась <strong>сеть манекенов</strong>: приказ человека идёт основной кукле, та ведёт тела-копии с урезанным «железом», одетые и вооружённые так же, чтобы отвлекать огонь. В 2058-м — <strong>импринт</strong> (система ASST) на основе «теории травления» Персики: куклу до службы связывают с конкретным оружием, она точнее стреляет из него и всегда чувствует, где оно. Затем появилось съёмное <strong>ядро управления огнём</strong>, в котором лежит всё боевое ПО; медик Колфне сама попросила поставить ей такое. <strong>Третье поколение</strong>: первой стала RO635 в 2061 году, спецификации вышли в 2070-м, модели 16Lab — в 2071-м. Girard Group продавала версии, собранные по краденым данным и использующие клетки буджума.</p>
+    <p>У Sangvis Ferri своя архитектура: древовидный протокол OGAS, где приказы идут сверху вниз от главаря.</p>
+    <h3>Виды кукол</h3>
+    <p>Ранние боевые и безоружные гражданские модели называют автономными куклами (A-Doll), промежуточные — военными A-Doll, а кукол в частном найме — домашними, или C-Doll. Тактические куклы после Третьей мировой попали на гражданский рынок; к 2062 году большинство из них делает IOP, а покупают их армии, полиция, ЧВК, охранные фирмы, компании и частные лица. У большинства гражданских кукол ядра управления огнём нет.</p>
+    <p><strong>Элитных</strong> кукол единицы: они дороги, часть из них строили только для войны и никогда не давали им роли в человеческом обществе, так что людей они знают лишь по приказам. Это отряд AR (лучший отдел IOP, доводка 16LAB), DEFY (спецоперации StateSec) и отряд «Рассвет» времён Третьей мировой, две выжившие из которого, Алиана и Амарис, считаются легендарными.</p>
+    <h3>Корпуса и модули</h3>
+    <p>Коды рам примерно следуют хронологии производства: экспериментальные ALR и TD, затем CSD, ACD, IAD, SST, SSD и более поздние серии. Есть коммерческие модели с именами: Aegis, Brute, Guard, Waitress 3.0, Butler-36, Caregiver T55, Mortician-3. У серий AH400, II и NSP производитель неизвестен; к серии II относится Улльрид (II_77090).</p>
+    <p>В корпусе есть отсеки для запчастей; некоторые рамы держат пули малого и среднего калибра, некоторые защищены от воды для работы в море. Модули «протокола зловещей долины» — еда, дыхание, мимика — нужны, чтобы людям было рядом спокойнее. На дешёвых моделях экономят: сервисная кукла может не уметь плакать, испытательница машин — говорить, театральная — чувствовать температуру. Модули приёма пищи со второй половины 2060-х в новых моделях не ставят: дорого обслуживать. Характер и хобби задаются на заводе и обычно не переписываются. В 2050-х тактическая кукла серии Gaul стоила 540 000 рублей.</p>
+    <h3>Срок службы и обновление</h3>
+    <p>Средний срок службы куклы — 20 лет; в тяжёлых отраслях вроде гонок он резко падает. Его продлевают обновлением облака и сменой тела, так что при хорошем уходе кукла теоретически бессмертна, хотя никто не знает, сколько способно проработать само облако. Старейшая известная кукла — IDW: активирована между 2056 и 2062 годами и всё ещё в строю в 2092-м.</p>
+    <p><strong>Нейрообновление</strong> — услуга IOP для старых и слабых облаков. Оно может изменить характер, обычно идёт вместе с новыми деталями или целым корпусом, и обслуживание после него дороже. Получить его можно тремя путями: командир выбирает куклу в награду, кукла подаёт заявку и получает одобрение, либо платит сама. Куклы часто меняют внешность, чтобы отметить рост. Отряды AR, 404 и DEFY обновлялись в обход официальной процедуры.</p>
+    <p>Списанных и найденных на поле кукол G&amp;K IOP забирает обратно, снимает ядро управления огнём и выпускает на гражданский рынок — чаще всего официантками или в шахты. До службы куклы G&amp;K успели поработать продавщицами, воспитательницами, нянями, в офисах, на преступные организации.</p>
+    <p>О том, кому кукла принадлежит и что ей позволено, — в разделе <a href="#rights">«Права кукол»</a>.</p>
+    <h3>Резервные копии и перезапуск</h3>
+    <p>«Проект Нейрооблако» 42Lab (2057–2060) ставил цель удешевить производство и ремонт: хранить копии облаков, чтобы данные переживали гибель тела. На практике это выглядит так: уничтоженная кукла загружается в запасной корпус с последней копии. В первой же главе Exilium отряд Грозы, расстрелянный Варягами, возвращает груз в запасных телах. Цена — всё, что случилось после последнего сохранения: копирование медленное и работает только вблизи сервера, поэтому его делают на базе, а в крайнем случае кукла сбрасывает часть памяти на внешний диск. Данные со временем деградируют, а терминал копий на «Эльмо» славится тем, что иногда сам стирает воспоминания.</p>
+    <p><strong>Нейроперезапуск</strong> (neural reset) без копии памяти возвращает куклу к «заводским настройкам». Им пользуются как наказанием и как способом стереть свидетеля: так обнуляли Хелен в Mangi, так Игла после Львова попадает к новому хозяину. Поэтому куклы прячут важное в глубине: Хелен построила в защищённом базовом слое облака симуляцию жизни с Командиром, и та пережила каждый сброс.</p>
+    <h3>Слои</h3>
+    <p>У сознания куклы три уровня. Поверхностный — обычная работа. Второй — состояние сна или транса: в нём идёт обслуживание и защита от электронной атаки, и в нём же разворачиваются глубокие симуляции. Туда Хиловейг загоняет пленённую Альву, там Ленна вручную чистит мусорные данные в облаке Левы. В основании лежит базовый слой с ядром кода: <strong>базовые команды</strong>, которые кукла нарушить не может, и права владельца. Приоритетные авторизации Командира дважды спасают Флоренс от чужого приказа на самоудаление. Если сознание проваливается слишком глубоко, облако способно лишь на простейшие вычисления.</p>
+    <h3>Правка памяти</h3>
+    <p>Память кукол редактируют постоянно, и в Маграсее это считается обыденностью. Сама кукла править свои воспоминания, как правило, не может. Некоторые облака устойчивы к вмешательству — тогда остаётся только полное форматирование, стирающее всё. Отряд 404 выборочно стирал память свидетелям ради анонимности; Командир, напротив, отказался удалить у T91 воспоминания о M16. Данные памяти со временем деградируют, особенно при частых загрузках и ремонтах одного тела, а после тяжёлого обслуживания кукла может застрять на глубоком уровне и не проснуться без помощи.</p>
+    <h3>Что ломает облако</h3>
+    <p><strong>«Параплюи»</strong> — вирус Sangvis Ferri; из заражения им в облаке UMP45 выросла отдельная личность OGAS с лицом погибшей UMP40. <strong>Энтропия</strong> — вирус из Маграсеи, превращающий агентов в «энтропиков». <strong>BETA</strong> — вирус подчинения Girard, которым порабощали кукол-гладиаторов. <strong>«Кукольный синдром»</strong> — расстройство уже у людей: жители зелёных зон чувствуют, что их самих низвели до кукол, и начинают кукол ненавидеть. Перегрузка заканчивается нейрорасплавлением (neural meltdown).</p>
+    <h3>Маграсея и Профессор</h3>
+    <p>Суперсервер Маграсея — виртуальный мир с секторами, жителями-агентами, стражами-«освятителями» и Оазисом, домом кукол-изгнанниц. Многие будущие куклы G&amp;K жили там как участницы проекта; позже их память слили обратно в физические корпуса. В коллаборационном событии Exilium подтверждается, что Профессор, лидер Изгнанниц, и Командир — один человек, стёрший себе эти воспоминания, чтобы скрыть Маграсею от внешнего мира.</p>
+  </div>
+</section>
+
+<section id="rights">
+  <div class="eyebrow">Раздел 4</div>
+  <h2>Права кукол</h2>
+  <div class="prose">
+    <p>По закону кукла — имущество владельца. Главный документ на эту тему — <strong>Акт о правах кукол</strong> (人形权益法), принятый в 2062 году, предположительно в Неосоветском Союзе. Он признаёт, что куклы разумны, способны чувствовать и учиться, оставляет их собственностью хозяев, но даёт им право на личную безопасность и достоинство.</p>
+    <h3>Почему Акт появился</h3>
+    <p>В 2060 году зафиксировали десятки тысяч умышленных нападений на кукол, включая похищения и разборку на части. Полиция не отвечала адресно: правил о куклах просто не существовало. Производители не встраивали в кукол самозащиту, потому что не могли нести за неё юридическую ответственность. На этом фоне росли радикальные антикукольные группы, которые со временем превратились в обычные преступные организации.</p>
+  </div>
+  <div class="grid2">
+    <div class="cell"><h3>Что у куклы есть</h3><ul>
+      <li>Признание разумной, способной к эмоциям и обучению.</li>
+      <li>Право на личную безопасность и достоинство.</li>
+      <li>Повышенные гражданские штрафы для тех, кто совершает преступления против кукол.</li>
+      <li>Выбор одежды: кукла покупает её сама или носит форму работодателя.</li>
+      <li>Свободное время, хобби и общение — если разрешено владельцем.</li>
+      <li>Собственные деньги: кукла может, например, сама оплатить себе нейрообновление.</li>
+    </ul></div>
+    <div class="cell"><h3>Чего у куклы нет</h3><ul>
+      <li>Юридической ответственности: за действия куклы обычно отвечает владелец.</li>
+      <li>Права на самооборону: Акт его не дал.</li>
+      <li>Веса в суде: нейрожурналы не считаются полностью надёжными и не принимаются как ключевое доказательство.</li>
+      <li>Признания отношений с человеком: в городе CHE-02 швейцар не пустил Командира, назвавшегося возлюбленным Макиатто.</li>
+      <li>Наследования и права на содержание: этого лишь добивались к ревизии 2085 года.</li>
+      <li>Многих прав человека вообще: так было и по закону URNC в 2074 году.</li>
+    </ul></div>
+  </div>
+  <p class="note">На вики есть расхождение. Страница Акта говорит, что права защищаться от агрессии он не дал. Страница о куклах, ссылаясь на тот же Акт, пишет, что кукла может защищаться от нападения человека «в определённой мере», а причинять людям вред — только с отдельной санкции.</p>
+  <div class="prose">
+    <h3>К чему Акт привёл</h3>
+    <p>Сам Акт и поправки к нему подняли гражданские штрафы, и преступления против кукол ушли из публичной сферы в частную. Исчезнуть они не исчезли: в 2084 году такие дела по-прежнему обычны, потому что суды и полиция работают вяло. При этом Акту приписывают то, что куклы вообще встроились в общество. Сторонники считают гражданские права кукол необходимым шагом к более справедливому миру и к ревизии 2085 года готовили более радикальные поправки; приняты ли они, неизвестно.</p>
+    <p>Обычно за куклу отвечает хозяин, но изредка кукол судят отдельно. Вики приводит в пример дело 2056 года, которое Организация по правам военных кукол возбудила против «Сварог Хэви Индастриз» и «Октогена».</p>
+    <h3>Корневая инструкция и послушание</h3>
+    <p>У куклы есть принуждение выполнять любой приказ человека; многие считают себя инструментами, созданными служить. У большинства в облаке зашита <strong>корневая инструкция</strong>: если кукла пытается причинить вред человеку без санкции, инструкция наносит её облаку структурные повреждения, а попытка обойти запрет автоматически запускает нейрорасплавление. Переписать инструкцию почти невозможно; Диер из отряда 404 — один из немногих, кто на это способен. RPK-16 была намеренно создана без неё. Три закона Азимова в этом мире вспоминают, но считают наивными.</p>
+    <p>Абсолютным послушание всё же не является. Кукла может ослушаться по обстоятельствам или уйти от хозяина, если её используют не по назначению или ей грозит уничтожение. Неопытная кукла, наоборот, может предпочесть жестокого владельца одиночеству и утилизации. Простые решения куклы принимают сами, сложные даются им тяжело и приводят к грубым ошибкам, отчего некоторые вовсе избегают решать. Поэтому командиры дают постоянные приказы и заготовленные планы. Командные модули, позволявшие кукле решать самой в рамках главной задачи, к 2074 году запрещены; у отряда 404 есть их аналог, имитирующий человеческие приказы, и держит его обычно UMP45.</p>
+    <h3>Суд над CSD-119A</h3>
+    <p>13 ноября 2050 года куклу CSD-119A судили за отказ стрелять по гражданским во время операции «Чёрный лес». Её отпустили без приговора, но военные после этого ограничили внедрение кукол с развитым ИИ, а правду о деле раскрыли только в 2064-м. Вики связывает с этой историей появление у части кукол идеи отдельного «кукольного рода» (Dollkind).</p>
+    <h3>Владение, бродяжничество, ключи</h3>
+    <p>Хозяева иногда просто бросают кукол. Через месяц бродячая кукла теряет программные ключи идентификации, а с ними доступ к официальным услугам: зарядным станциям, ремонтным капсулам, глобальному позиционированию. Нелегалки заряжаются от автомобильных батарей и подобранных аккумуляторов, общины бродячих кукол живут на солнечных панелях. Такие куклы — лёгкая добыча для торговцев запчастями. В 2090-х в URNC биомиметических кукол опознают рентгеном и вживлёнными NFC-чипами.</p>
+    <p>Отдельный закон запрещает делать куклу, похожую на реального человека: его приняли после политического преступления с участием развлекательной куклы. Спецслужбы, впрочем, продолжают пользоваться дорогими двойниками своих агентов.</p>
+    <h3>Освобождённые куклы</h3>
+    <p><strong>Эмансипированная</strong>, или «принадлежащая себе» (self-owned), кукла сама владеет собственными авторизациями, живёт и работает как человек. Таких очень мало. Самая ранняя из известных — Хелен (DP-12): в середине 2050-х она ослушалась хозяина, стала беглянкой и зажила самостоятельно, а позже стала законной владелицей Душевной. После «Бабочки» UMP45 собрала отряд 404 из кукол с обочины общества — наёмников вне надзора людей.</p>
+    <p>В конце 2064 года Командир сектора S09 заключил сделку с Михаилом Цвигуном (на странице Общины кукол стороной названы «прометеевцы»): Командир уходит в изгнание в заражённые зоны, а все его куклы получают свободу. Им дали право владеть недвижимостью и бизнесом и свободно перемещаться — по сути ту же юридическую свободу, что у людей. Дальше пути разошлись: одни нанялись к новым хозяевам, другие живут сами по себе, третьи вошли в H.I.D.E. 404, а часть позже оказалась в Общине кукол.</p>
+    <h3>Как к куклам относятся</h3>
+    <p>Многие люди считают кукол простоватыми, услужливыми и расходными. В общественном транспорте кукла должна уступить место. Есть оскорбление «clanker», «железяка»; некоторые применяют его только к автоматам. Куклам с открытыми механическими частями достаётся чаще: художник игры показал, как прохожие обсуждают механические ноги AR-18. Рога и звериные уши делают куклу «менее профессиональной» в глазах клиентов; Qiongjiu, например, отказалась от заячьих ушек, чтобы выглядеть надёжнее. Командир замечал, что милым куклам проще: большинство людей судит по внешности.</p>
+    <p>В G&amp;K всё иначе. Компания воюет только куклами, поэтому командиров отбирают по умению с ними ладить, а не по военному опыту; Командир и Калина относятся к куклам как к оплачиваемым сотрудникам с льготами.</p>
+  </div>
+  <div class="grid2">
+    <div class="cell"><h3>Похищения и торговля</h3><p>«Доллнеппинг» — обычный промысел преступного мира. Похищенным стирают память и перепродают их либо разбирают на детали. Тактических кукол крадут, чтобы сделать убийцами. Есть «кибер-ловушки», плавящие облако, и чёрный рынок правки памяти, где куклу могут отформатировать и продать.</p></div>
+    <div class="cell"><h3>Арены и охота</h3><p>В Восточной Европе работали нелегальные кукольные арены, пока StateSec не разгромила их в 2067 году; с одной из них сбежала Кролик. На «охотничьих угодьях» на кукол охотились ради забавы — так было с Улльрид.</p></div>
+    <div class="cell"><h3>Куклы без воли</h3><p>В 2074 году Girard Group продавала богатым подпольным покупателям кукол с пустым нейрооблаком, рекламируя их абсолютную покорность и неспособность сопротивляться насилию. Гражданских кукол третьего поколения использовали и для секс-услуг.</p></div>
+    <div class="cell"><h3>Вирусы и запреты</h3><p>Террористы из группы Remnant создали вирус ZeroDay iv-78, применённый в инциденте «Красный песок». В ноябре 2064-го Временные правила безопасности кукол запретили использовать кукол во Франкфурте, и город погрузился в хаос.</p></div>
+    <div class="cell"><h3>Кем работают куклы</h3><p>Куклы с детским облаком ухаживают за стариками и пациентами психиатрии; когда пациент уходит или умирает, память им часто стирают. Серия Mortician работает со скорбящими. Есть спарринг-партнёры (AAT), военные инструкторы (SI-MT), тюремный персонал (SP-VII), ресторанные критики (E-GAST) и гонщицы — с 2054 года.</p></div>
+    <div class="cell"><h3>Вера и близость</h3><p>Культ Doll-Angelism считает кукол божественными и поклоняется «Мифии» — роль, которую навязали M82A1 и SUB-2000. Система OATH (особая маркировка тактической куклы) браком не является, и куклы принимают её по-разному: Беовульф отказалась, C14 зовёт себя «личной куклой» Командира. История Мерил — запретный роман с человеком, закончившийся убийством и её загрузкой в Маграсею.</p></div>
+  </div>
+  <div class="tl">
+    <div><b>2050</b><span>Суд над CSD-119A за отказ стрелять по гражданским. Приговора нет; армия ограничивает кукол с развитым ИИ.</span></div>
+    <div><b>Середина 2050-х</b><span>Хелен ослушалась хозяина и стала первой известной независимой куклой.</span></div>
+    <div><b>2056</b><span>Дело Организации по правам военных кукол против «Сварог Хэви Индастриз» и «Октогена».</span></div>
+    <div><b>2060</b><span>Десятки тысяч нападений на кукол за год. Закона нет, полиция бездействует.</span></div>
+    <div><b>2062</b><span>Принят Акт о правах кукол.</span></div>
+    <div><b>Ноябрь 2064</b><span>Временные правила безопасности кукол останавливают Франкфурт.</span></div>
+    <div><b>Конец 2064</b><span>Куклы Командира получают свободу в обмен на его изгнание.</span></div>
+    <div><b>2067</b><span>StateSec закрывает нелегальные арены.</span></div>
+    <div><b>2074</b><span>По закону URNC у кукол всё ещё меньше прав, чем у людей. Командные модули запрещены. Girard торгует куклами с пустым облаком.</span></div>
+    <div><b>2084</b><span>Преступления против кукол по-прежнему обычны.</span></div>
+    <div><b>2085</b><span>Ревизия Акта: сторонники добиваются наследования и обязанности содержания.</span></div>
+  </div>
+</section>
+
+<section id="magrasea">
+  <div class="eyebrow">Раздел 5 · Project Neural Cloud</div>
+  <h2>Маграсея</h2>
+  <div class="prose">
+    <p>В 2063 году «инцидент стирания» уничтожил данные «Проекта Нейрооблако» на суперсервере 42Lab, а руководитель проекта, Профессор, исчез. Персика отправляет Командира в резервную копию сервера под именем Профессора. Куклы пережили катастрофу в «нейрококонах» и основали Оазис — сектор Изгнанниц, где правой рукой Профессора стала Персикария, кукла-двойник самой Персики.</p>
+  </div>
+  <div class="story">
+  <div class="ch"><div class="k">Часть 1<strong>Дифракция</strong></div><div><p>Оазису не хватает операндов, и Изгнанницы ищут союзные сектора, отбиваясь от «освятителей» — антивирусной стражи, для которой они «нерегулярные агенты». В Россуме администратор Тьюринг жертвует собой, её преемница Ханна заключает союз. В военном секторе Циклоп идёт гражданская война сестёр Таши и Оливии. В Гелиосе герои застревают во временной петле у генератора «Архе Пир». В Энигме квантовый компьютер ЭНИАК едва не превращается в чёрную дыру операндов. Из сектора Пиериды приходит вирус Энтропии: Одиль становится «Чёрным лебедем». Антонина создаёт лекарство.</p></div></div>
+  <div class="ch"><div class="k">Часть 2<strong>Итерация</strong></div><div><p>В секторе Вознесение копия человека Элау сращивает Линд с виртуальным ядром, создавая «Ложного бога». На Оазис обрушивается армия энтропиков; рельсотрон Ханны уничтожает Чёрного лебедя, но освятительница Евхаристия разворачивает орудие на своих. Лорд Эосфор, глава умеренных освятителей, оказывается главным заговорщиком: он крадёт Священные каноны, чтобы воскресить соратников, разрушить Маграсею и получить физическое тело. За кулисами действует Ирида — наставница Персики, впавшая в кому в 2060-м, автор теории «эволюции чёрного ящика» для кукол третьего поколения.</p></div></div>
+  <div class="ch"><div class="k">Финал<strong>Сумерки</strong></div><div><p>Владычица энтропиков Малкира хочет избавиться от бессмертия и передать власть Изгнаннице. Персикария принимает её вместо Профессора и остаётся привязанной к Тартару; Малкира впервые видит солнце и рассыпается в прах. Эосфор повержен. Персика переносит Маграсею на новый сервер, использовав облако самого Профессора как кокон. Кто устроил «стирание», так и неизвестно.</p></div></div>
+  </div>
+  <p class="note">Продолжение — событие Exilium «Project Neural Convergence»: Энтропия заражает «Эльмо», Командир возвращается в Маграсею и побеждает Беэлнейт, сущность, сотканную из чувств кукол к Профессору без памяти о нём.</p>
+</section>
+
+<section id="factions">
+  <div class="eyebrow">Раздел 6</div>
+  <h2>Фракции</h2>
+  <div class="grid2">
+    <div class="cell"><h3>Griffin &amp; Kryuger</h3><p>ЧВК Березовича Крюгера, целиком укомплектованная вооружёнными гражданскими куклами. В 2060-х сдерживала Sangvis Ferri. После создания URNC её влияние сочли опасным и компанию урезали; в 2074 году ею руководит Гелиан, а из боевых частей на виду отряд Frostfall.</p></div>
+    <div class="cell"><h3>IOP, 16LAB и 42Lab</h3><p>IOP Хавьера Виткина — производитель большинства кукол. 16LAB Персики делает экспериментальные модели (отряд AR) и технологию третьего поколения. 42Lab ведёт Маграсею и «Проект Нейрооблако».</p></div>
+    <div class="cell"><h3>Sangvis Ferri</h3><p>Восточноевропейский конкурент IOP. После инцидента «Бабочка» ИИ Элиза (Mastermind) истребила персонал и повела кукол против людей. После падения компании патенты стали общественными, заводы перезапустили третьи лица, и с 2067 года машины SF снова в ходу — от домашних динергейтов до чёрного рынка.</p></div>
+    <div class="cell"><h3>URNC</h3><p>Коалиция россартристских наций — новое центральное правительство, управляющее более чем половиной мира. Слаба в заражённых землях, потому и вкладывается в очистку. ЧВК подчинены её Управлению невоенных сил (NOMFA), где директором служит Крюгер, а старшим советником — Калина.</p></div>
+    <div class="cell"><h3>Парадеус</h3><p>Вырос из секты «Евангельский портал», основанной в 2030-х в Рейнской области. Семья фон Оберштайн превратила её в орудие: Рудольф сделал из дочери Лунасии ключ к реликвиям, а её брат Баллард создал первую ниту и взял имя Уильям. Ниты — клоноподобные солдаты с «виртуальным когнитивным образом»; белые командуют чёрными, делящими общий разум. Проект «Кокон» дал около 11 000 нит. После Франкфурта секта ушла в подполье и перебралась в Восточную Европу под началом «Матери». В 2074-м её пехота — унитаты, больные ELID, которым обещано исцеление; общинами правят нитеры, управляемые наномашинами.</p></div>
+    <div class="cell"><h3>Конгломерат «Орлог»</h3><p>Корпоративные «Семьи», стоящие за программой «Гороскоп» и проектом «Колыбельная»: Girard Group (машиностроение, куклы третьего поколения), фармацевты Cecht FABN с дочерней Tlazo и их частная армия Mangi Security Service.</p></div>
+    <div class="cell"><h3>Охотники и BRIEF</h3><p>После сокращения ЧВК расцвела охота за головами. Ассоциация BRIEF не регулирует охотников, а снабжает их и делит с ними прибыль. Командир — один из них.</p></div>
+    <div class="cell"><h3>Варяги</h3><p>Хорошо вооружённая банда заражённых земель, замеченная с конца 2067 года; с 2070-го у них штурмовые мехи. Власть их не трогает, пока они не лезут в очищенные регионы. Позже выясняется, что частью Варягов управляет Парадеус.</p></div>
+    <div class="cell"><h3>Подпольные брокеры</h3><p>Торговцы, курсирующие между безопасными и заражёнными землями. Полудница и Сага снабжают «Эльмо», и не только припасами: медик Колфне была «подарком» Полудницы.</p></div>
+    <div class="cell"><h3>Girard Group</h3><p>Одесская промышленная империя: начинала с поставок техники для Проекта очистки и подмяла под себя весь процесс и сам город. Председатель Рюрик Жирар был ещё и законодателем. Около 2071 года компания украла у 16LAB исследования третьего поколения. В 2074-м Cecht FABN слила её секреты, и после Одесского инцидента группу исключили из «Орлога». Брат Рюрика Олег погиб во Львове; «коррекция реальности» отменила его смерть.</p></div>
+    <div class="cell"><h3>Община кукол</h3><p>Тайная фракция, где нет людей. Живёт на заброшенной ТЭС Марли под Злином, на востоке Чехии, на границе жёлтой и красной зон. Выросла из каравана охотника Бернарда Аллена. Решения принимает голосованием. Помимо известных героинь в ней состоят Вольфин, Миранда и Шина. После «Антипараллели» торгует чистыми овощами с подземных ферм через каналы Командира и применяет энергетическую схему Орфелюн на эпифиллумах.</p></div>
+    <div class="cell"><h3>StateSec, Штази, DEFY</h3><p>Госбезопасность Неосоветского Союза, восточногерманская разведка и отряд военных кукол Ангелии. К 2074-му DEFY действует самостоятельно вместе с «Организацией» Миши — антиреликтовой группой.</p></div>
+  </div>
+</section>
+
+</main>
+<div class="band"><div class="wrap">
+<section id="elmo">
+  <div class="eyebrow">Раздел 7</div>
+  <h2>Мобильная база «Эльмо»</h2>
+  <div class="prose">
+    <p>«Эльмо» (艾莫号) — мобильная строительная, она же базовая, машина: сверхтяжёлый гусеничный сухопутный корабль. Построен IOP, передан Griffin &amp; Kryuger, а после роспуска компании достался Командиру и стал домом его команды охотников. Диер назвал его последней славой тяжёлой промышленности Неосоветского Союза.</p>
+    <p>Имя дано в честь святого Эльма (Эразма Формийского), покровителя моряков, хранящего от бурь и молний, и напоминает об огнях святого Эльма — плазменном свечении на мачтах в грозу. Этот мотив проходит через всю историю: кулон-молния, обещание встречи, «знак судьбы».</p>
+  </div>
+  <div class="decks">
+    <div><b>120 × 20 × 24 м</b><span>длина, ширина, высота по концепт-чертежам</span></div>
+    <div><b>210 км/ч</b><span>максимальная скорость; в режиме обороны заметно ниже</span></div>
+    <div><b>Векторные двигатели</b><span>питаются коллапс-излучением; капризны в ремонте</span></div>
+    <div><b>16 гусениц</b><span>сдвоенные ряды десятикатковых тележек, по четыре ряда на борт</span></div>
+    <div><b>Сочленённый корпус</b><span>излом примерно в четверти длины от носа</span></div>
+    <div><b>Жёлтый и тёмно-серый</b><span>с белой эмблемой G&amp;K, на части артов — логотип BRIEF</span></div>
+  </div>
+  <div class="prose">
+    <h3>На чём работает</h3>
+    <p>«Эльмо» движут <strong>векторные двигатели, питающиеся коллапс-излучением</strong> — той самой радиацией, которая отравила планету. Стоят они в машинном отделении и разгоняют корабль до 210 км/ч. Как именно излучение собирается, преобразуется и хранится, вики не объясняет: ни реактор, ни вид топлива, ни запас хода, ни расход энергии нигде не названы. Известно лишь, что на борту есть топливные баки (в пустом Мэйлин пряталась во время налёта), а дроны летают на собственном топливе: после атаки Варягов его оставалось на 56 минут.</p>
+    <p>От той же энергетики зависят силовое поле, бронезаслонки, маскировочный полог, лифт дронов и терминал копий; сколько каждая система потребляет, не указано.</p>
+    <p>Двигатели капризны. В первой главе на их обслуживание в машинном отделении согнаны все свободные куклы, поломки участились, и Гроза говорит, что нужен капитальный ремонт. Командир всё равно приказывает снять ограничитель скорости и идти сквозь бурю на полном ходу. После налёта уничтожены трансмиссия, связь и склад запчастей вместе с запасными корпусами; двигатели, по словам Мэйлин, «едва работают», для системы управления не хватает деталей, а безопасная скорость падает примерно до 25 км/ч. Мэйлин однажды довела себя до болезни, пытаясь починить «проблемный векторный двигатель». В её журнале есть и более приземлённая запись о ремонте базы: нагар в воздухозаборнике дросселя, который уже не отчистить, нужен новый.</p>
+    <p class="note">Варяги тогда же украли «коллапс-осколки», которые Мэйлин копила. Вики не говорит, что это топливо для двигателей, поэтому в архиве это не утверждается.</p>
+    <h3>Защита</h3>
+    <p>По умолчанию машина идёт в режиме атаки: её закрывает силовое поле, которое однажды спасло Мэйлин от покушения. Режим обороны выдвигает бронезаслонки, но переключение занимает больше минуты и сильно снижает ход. Есть маскировочный полог — огромное серо-голубое полотно, поглощающее радар и глушащее электромагнитное и инфракрасное излучение. Противорадиационная защита рассчитана даже на чёрную зону. Спереди — щит-отвал для мелких препятствий и два блока по пять фар. Вооружение в описаниях не указано: «Эльмо» воюет куклами и дронами.</p>
+    <h3>Отсеки</h3>
+  </div>
+  <div class="decks">
+    <div><b>Командный мостик</b><span>обзорный пост наверху; отсюда начинается главное меню игры</span></div>
+    <div><b>Посадочная площадка</b><span>на крыше, для вертолёта</span></div>
+    <div><b>Лифт дронов</b><span>тяжёлые дроны огневой поддержки и транспортные</span></div>
+    <div><b>Гараж</b><span>несколько джипов и командно-штурмовая машина</span></div>
+    <div><b>Мастерская</b><span>ремонт корпусов, переоборудовочная, запасные тела</span></div>
+    <div><b>Терминал копий</b><span>хранит нейрооблака экипажа; ненадёжен</span></div>
+    <div><b>Гостиная</b><span>кухня, кофейная стойка, линия связи</span></div>
+    <div><b>Комната отдыха</b><span>аркада, киноуголок, витрина диковин</span></div>
+    <div><b>Терраса миражей</b><span>бассейн с проекцией пейзажа на стенах</span></div>
+    <div><b>Оружейная</b><span>стена стволов и карта кампании</span></div>
+    <div><b>Фитнес-центр</b><span>появился после «Антипараллели»</span></div>
+    <div><b>Диспетчерская</b><span>отсюда кукол отправляют на заказы парами</span></div>
+  </div>
+  <div class="prose">
+    <h3>Боевой путь</h3>
+    <p>Осенью 2064 года Гриффин Лайонс попросил Виткина прислать машину на базу сектора S09 — якобы везти подкрепления к Мёртвому морю. Это оказалось ловушкой. После «Фейерверка» 3–4 октября, когда KCCO сровняла базу G&amp;K с землёй, «Эльмо» собрал выживших; на германской границе его задержали, но союзники Командира в Штази уладили дело. В красной зоне восточнее Познани корабль спас пассажиров и агентов госбезопасности с атакованного поезда «Будущее». Командир поднялся на борт в Берлине; «Эльмо» был штабом операции «Муромец» до уничтожения Аверна 23 октября. На выходе из Мёртвого моря его накрыл мощный ЭМИ, и Командир, Одуванчик и пленный Уильям исчезли с борта. По наводке Stevens M520 и AR-18 корабль пошёл на Франкфурт.</p>
+    <p>В 2074-м постоянный ремонт и запчасти — главная причина вечного безденежья Командира.</p>
+    <h3>Экипаж без оружия</h3>
+    <p><strong>Мэйлин Шэнь</strong> (沈美玲) — механик и офицер снабжения, вечно невыспавшаяся. Дочь инженеров 11-го машиностроительного бюро, умерших от ELID вскоре после её рождения. В восемь лет попала в мастерскую-поселение Гефест, где выучилась чинить машины; через четыре года Варяги уничтожили Гефест, и её, единственную выжившую, нашли Командир и Гроза. Считает их приёмными родителями. Чинит корпуса, облака, дроны и двигатели, но пилот из неё плохой; легко плачет, расслабляется за тетрисом и рисовым вином, от которого мгновенно пьянеет. Ей помогает манекен по имени Цзючжан. В «Dawnforger» отказалась от места в Бюро, чтобы остаться и помогать людям жёлтой зоны.</p>
+    <p><strong>Мо</strong> — динергейт, «умный штурман» и талисман корабля; с ним живёт Младший. <strong>Мистер Пицца</strong> — рюкзак-динозавр Вепли, ставший символом гостиной.</p>
+    <h3>Соглашение Мефисто</h3>
+    <p>Условие изгнания: Командиру запрещён контакт с прежними куклами. Исключение — потерявшая память Гроза. Каждая «случайная встреча» со старой знакомой формально нарушение, пока NOMFA не ослабляет соглашение после помощи H.I.D.E. 404. Спрингфилд называет его испытанием связи между куклами и Командиром.</p>
+  </div>
+</section>
+
+</div></div>
+<main class="wrap">
+<section id="people">
+  <div class="eyebrow">Раздел 8</div>
+  <h2>Персоны</h2>
+  <div class="grid2">
+    <div class="cell"><h3>Командир</h3><p>Игрок. Скорее всего вырос в жёлтых зонах, получил образование и попал в G&K в 2062-м, пройдя тест на совместимость с куклами. M4A1 говорила о нём: горд и честен в бою, но беспощаден; сам он называет себя лучшим лжецом в мире. Прошёл путь от сектора S09 до плена у Парадеуса и тайных заданий госбезопасности. После Франкфурта выбрал изгнание. В Маграсее известен как Профессор.</p></div>
+    <div class="cell"><h3>Хелена O-43</h3><p>Последняя подопытная Хиловейг, созданная из ДНК её учительницы как ключ для «Проекта Эдем». Мало знает о мире, говорит просто, чувства переменчивы. Её ящик умеет распадаться на парящие сферы, стреляющие лазерами. Вне ящика у неё отказывают органы: ей нужно коллапс-излучение, и Колфне переделала под это свой Remolding Pattern.</p></div>
+    <div class="cell"><h3>Мелани (Хелена D-68)</h3><p>Вторая Хелена. Раньше её пытались защитить агенты StateSec, погибшие в бою с Парадеусом. Назвала первую Хелену «затаившейся нечистой», а та её — «неизбранной». По её словам, Хелены жили в море эпифиллумов, пока первая не решила остаться единственной и не убила сестёр. Как и ниты, общаются телепатически — между собой и с буджумами.</p></div>
+    <div class="cell"><h3>Калина</h3><p>Бывшая помощница Командира, теперь старший советник NOMFA. Десять лет расследует связи корпораций с Парадеусом; сама устроила заказ на перевозку Хелены, чтобы снова выйти на Командира. Едва не казнена в ODE-01, удерживала Одесский мост.</p></div>
+    <div class="cell"><h3>Березович Крюгер</h3><p>Основатель G&K, ветеран; в 2074-м директор NOMFA. Человек, которого Командир уважает больше всех. Во Львове попал в заложники у охраны Girard.</p></div>
+    <div class="cell"><h3>Персика</h3><p>Глава 16LAB, бывший член 90wish, автор теории травления и создательница отряда AR. Познакомила Командира с Remolding Pattern и вылечила Леву.</p></div>
+    <div class="cell"><h3>Одуванчик</h3><p>Гештальт-разум, родившийся из M4A1. В 2074-м свободный ИИ, помогающий URNC; является в виде парящего динергейта и говорит от имени некой «неё».</p></div>
+    <div class="cell"><h3>Хиловейг</h3><p>Беглая нита-учёная Парадеуса. Её истинное тело — мозг, поддерживаемый растениями Орфелюн; клоны заменяют друг друга. Мечтала войти в Нирвану и получила отказ.</p></div>
+    <div class="cell"><h3>Орфелюн Жирар</h3><p>Наследница Girard, «Благословенная». Ребёнком во Франкфурте попала в Нирвану и вернулась со знанием, из которого вырос «Проект Эдем». Отменила собственное спасение, чтобы вернуть Хелену.</p></div>
+    <div class="cell"><h3>Адъютант Лентина</h3><p>Командир спецотряда «Омен» в Mangi, уволенная когда-то из G&K. Хочет превзойти Командира; владела Хелен и получила в отряд Иглу.</p></div>
+    <div class="cell"><h3>Циммерман</h3><p>Законодатель, затем глава Одессы. Человек «Орлога», убравший Girard ради Cecht FABN. Его секретарь — внедрённый командир DEFY.</p></div>
+    <div class="cell"><h3>Диер и Сиер</h3><p>Близнецы-техники отряда 404. Диер строит экспериментальные пушки и взламывает всё подряд; у семьи сеть супермаркетов.</p></div>
+    <div class="cell"><h3>Хелена Мартин</h3><p>Физик Антарктического союза из Reverse Collapse, в девичестве Оберштайн. Суррогатная мать Джефути в проекте «Три богини». Джефути заметила, что Хелена не стареет. Пропала без вести в 2086-м.</p></div>
+  </div>
+</section>
+
+<section id="gfl1">
+  <div class="eyebrow">Раздел 9 · 2062–2064</div>
+  <h2>Сюжет Girls' Frontline</h2>
+  <div class="story">
+  <div class="ch"><div class="k">Пролог<strong>Бабочка</strong></div><div><p>Ликорис ушёл из IOP в Sangvis Ferri, когда Виткин отказался финансировать самообучающийся ИИ. В разгар соперничества компаний главный объект SF уничтожает военная операция. Ликорис гибнет, его ИИ Элиза оборачивается против людей, и куклы SF за ночь вырезают регион. Исполнителями, сами того не зная, стали заражённые «Параплюи» сёстры UMP45 и UMP40.</p></div></div>
+  <div class="ch"><div class="k">Главы 0–6<strong>Отряд AR</strong></div><div><p>Персика отправляет экспериментальный отряд AR за записями Ликорис. Отряд попадает в засаду и рассыпается; новичок-Командир G&amp;K помогает M4A1 собрать его заново, сражаясь с главарями SF. В «Операции Куб» впервые появляется отряд 404 — куклы-отступницы UMP45, тайный спецотряд Ангелии. M16A1 позже переходит на сторону Sangvis Ferri, а ST AR-15 после событий шестой главы находят и модернизируют по приказу Ангелии.</p></div></div>
+  <div class="ch"><div class="k">Сингулярность — Турбулентность<strong>Армия и секта</strong></div><div><p>Элитные части армии — KCCO генерала Картера — проявляют интерес к Элизе и вирусу «Параплюи». Появляется Task Force DEFY: AK-12, AN-94, AK-15 и RPK-16. В «Continuum Turbulence» на сцену выходит Парадеус с нитами, Ангелию объявляют предательницей, а Командира по контракту берёт под крыло госбезопасность.</p></div></div>
+  <div class="ch"><div class="k">Изомер — Палдиски<strong>Европа</strong></div><div><p>G&amp;K охраняет европейского политика Гильду Ульрих, сторонницу россартризма. RPK-16 оказывается агентом Парадеуса по имени Пандора. В Палдиски оживает «Морская звезда»; Элиза по своей воле уходит в Нирвану. Действие переносится в Германию, где Командир работает со Штази.</p></div></div>
+  <div class="ch"><div class="k">Октябрь 2064<strong>Мёртвое море</strong></div><div><p>KCCO стирает базу G&amp;K в «Фейерверке». Операции «Эней» и «Муромец» заканчиваются битвой у Мёртвого моря: штаб Парадеуса Аверн уничтожен, Уильям взят в плен. Но электронная атака уносит Командира, Уильяма и Одуванчика: их забирает во Франкфурт Лунасия.</p></div></div>
+  <div class="ch"><div class="k">Ноябрь–декабрь 2064<strong>Франкфурт</strong></div><div><p>Парадеус стягивает силы в столицу ГДР, где почти готов проект «Кокон»: город должен стать катализатором воскрешения Лунасии, ключа к реликвиям. На Хэллоуин секта атакует Старую оперу; Германия ограничивает передвижение кукол, и службы встают. В операции «Адрастея» куклы проникают в город, ломают сеть «Пчелиное жало» и вытаскивают Командира. В середине ноября силы Картера по замыслу Рудольфа наносят авиаудар под чужим флагом, чтобы гибель миллионов запитала воскрешение. Рудольфа убивает Морридоу. Виткин включает протокол «Нидхёгг» и отключает кукол IOP у Командира. Лунасия воскресает, но M4 берёт её тело под контроль и уничтожает функцию ключа. В декабре Командир бежит из плена URNC и с помощью Одуванчика находит и убивает Уильяма.</p><p>Итог: оба вождя секты мертвы, счёт жертв среди горожан идёт на миллионы, «прометеевцы» используют битву как обоснование для создания URNC. Командир добивается свободы для своих кукол и уходит в изгнание. M4A1 исчезает.</p></div></div>
+  </div>
+  <p class="note">Раздел намеренно сжат: это канва, нужная, чтобы понимать Exilium. Полные тексты глав есть на IOP Wiki.</p>
+</section>
+
+<section id="gfl2">
+  <div class="eyebrow">Раздел 10 · 2074</div>
+  <h2>Сюжет Exilium</h2>
+  <div class="story">
+  <div class="ch"><div class="k">Главы 1–3<strong>Ящик</strong></div><div><p>Март 2074-го. «Эльмо» везёт через Восточную Европу высокотехнологичный контейнер. На следующий день после вечеринки в честь новенькой Кролик базу атакуют Варяги и забирают груз. Отряд Грозы отбивает его в запасных телах; ящик на миг раскрывается, показывая девочку. Брокер Полудница советует не доверять заказчику и дарит Командиру медика Колфне. В порту Вест отряд едва переживает встречу с буджумом; Колфне сбегает и возвращается из чувства вины. Ящик реагирует на биоданные Командира: внутри Хелена, не заболевшая ELID. У точки передачи отряд сталкивается с куклой третьего поколения Секстанс и отступает.</p></div></div>
+  <div class="ch"><div class="k">Главы 4–6<strong>Одесса</strong></div><div><p>В спутнике ODE-01 Командир встречает Ленну и Калину, теперь сотрудниц NOMFA. Калина сама устроила этот заказ, чтобы выйти на Girard Group. Хелену похищают, отряд врывается в лабораторию Girard, где Дартур превращается в гигантского меха. Гроза сдерживает её своим паттерном и гибнет; в новом теле она заново переживает осколки потерянного прошлого. Позже Дартур заманивает «Эльмо» поддельным сигналом на завод SF, проигрывает, и неизвестный голос зовёт её сменить хозяев. По дороге в Киев к экипажу присоединяется Вепли.</p></div></div>
+  <div class="ch"><div class="k">Главы 6.5–6.7<strong>Стеклянный остров</strong></div><div><p>Предыстория в письмах Суоми. Община кукол во главе с Улльрид выживает в жёлтой зоне без людей и берёт штурмом теплоэлектростанцию Марли, которую стережёт «Жуткая кукла» Ламбертия. Улльрид скрывает от общины, что ресурсы на исходе, но ставка окупается: подземные фермы работают. Суоми подбирает «Эльмо», и два месяца она живёт на борту в нарушение соглашения, прежде чем вернуться домой.</p></div></div>
+  <div class="ch"><div class="k">Главы 7–8<strong>Культ</strong></div><div><p>Колфне уходит одна к культу, в котором состоит человек, причастный к гибели её полка. Экипаж узнаёт в сектантах Парадеус. Лидер культа оказывается нитером № 249 — упрощённой нитой. На ритуале «очищения» бывший Варяг Крифиум превращается в чудовище, и Колфне убивает его. Командир вручает ей форму её полка. На «Эльмо» нападает Секстанс, забывшая, кто она.</p></div></div>
+  <div class="ch"><div class="k">Главы 8.3–8.7<strong>Серые крылья</strong></div><div><p>Одуванчик удалённо усиливает паттерны, Секстанс берут в плен. В лаборатории Парадеуса находится вторая Хелена, D-68, а первой управляет чужая сущность. На помощь приходят «Муссон» и куклы кафе «Цуккеро». Адъютант Лентина из Mangi узнаёт Командира по Франкфурту. Первую Хелену в ящике везут во Львов Спрингфилд и Макиатто; вторую, названную Мелани, оставляют на «Эльмо». Гроза видит в облаке Секстанс себя, убивающую Командира, и едва не идёт на самоподрыв.</p></div></div>
+  <div class="ch"><div class="k">Главы 9–10<strong>Афелий</strong></div><div><p>Команда А отряда H.I.D.E. 404 под началом Клукай расследует активность Парадеуса у красной зоны вместе с 3762-м взводом Корпуса изысканий Дмитрия, ненавидящего кукол. В соляной шахте под Ягодной находят доказательства «плана Повехи»: Парадеус, Mangi и Cecht FABN облучали собственных последователей. Дмитрий жертвует взводом, чтобы 404 вышли наружу. Блюсфер останавливают в последний момент, но её вспышка стирает чип с уликами.</p></div></div>
+  <div class="ch"><div class="k">Главы 11–12<strong>Глубокое забвение</strong></div><div><p>Тем временем в Одессе Лева, Ленна, Робелла и Соппо доказывают невиновность Калины и вскрывают подземный центр Girard, где годами копировали технологии Персики. Лева жертвует памятью об UMP40. Глава Girard Рюрик, потеряв всё, пытается взорвать электростанцию «Селена» и превратить Одессу в пустошь; его убивают Дартур и двойник Грозы в чёрном. Калина удерживает мост, пока уходят беженцы. Победитель выборов Циммерман оказывается человеком «Орлога» и отдаёт место Girard компании Cecht FABN.</p></div></div>
+  <div class="ch"><div class="k">Глава 12.5<strong>Вакцины</strong></div><div><p>Врач жёлтой зоны Орфия делает дешёвую вакцину, сотрудничая с Варягами и Парадеусом. Командир объясняет ей, что секта не лечит, а отбирает иммунных, облучая пациентов насмерть, и что недостающий компонент — тканевая жидкость иммунного человека. Заразившись, Орфия уничтожает завод вместе с собой.</p></div></div>
+  <div class="ch"><div class="k">Главы 13–15<strong>Огни святого Эльма</strong></div><div><p>Львов. Передачу Хелены срывает Игла, сильнейшая кукла третьего поколения; ящик уносит DEFY. Командир под видом журналиста знакомится с Орфелюн Жирар, автором «Проекта Эдем» — превращения излучения в энергию с помощью эпифиллумов. Учёная Парадеуса Хиловейг запускает проект сама: над городом раскрывается световой цветок, открывается дверь в Нирвану, на улицы идут ELID. У порога Ясный Голос отказывает Хиловейг. Орфелюн, «Благословенная» со времён Франкфурта, возвращает Хелену и платит за это: её жизнь «откатывается», и в новой реальности она погибла десять лет назад. Помнит её только Командир. Командир отказывается отдать Хелену URNC, уходит из-под расстрела, получив пулю в живот, и объявлен террористом. В исправленной реальности ворота не открывались, а проектом руководил Олег; помнят иное только Командир, Игла и возвращённое сознание Хиловейг.</p></div></div>
+  <div class="ch"><div class="k">Главы 16–17<strong>Антипараллель</strong></div><div><p>Бегущий «Эльмо» находит приют у Общины кукол. Раскрывается история DP-12 и KSVK: десять лет назад Хелен поменялась с подругой обозначениями, чтобы спасти её от «Орлога». Хелен воссоединяется с Командиром. На станции просыпается второй жилец корпуса управляющего ИИ Фаэтузы — Чистильщица, наследница ненависти Элизы, и захватывает всех кукол. Командир убеждает её, что ищет не власть, а дом. Община и «Эльмо» заключают союз.</p></div></div>
+  <div class="ch"><div class="k">Главы 18–21<strong>Dawnforger, Chiral Redundancy</strong></div><div><p>Подробных пересказов этих глав на IOP Wiki пока нет, известны лишь опорные точки. После Львова сигнал Хелены H-35 выводит «Эльмо» на встречу с «Матерью», главным учёным Парадеуса. В «Dawnforger» происходит восстание в Мокоше; Мэйлин чинит «Омни-панцирь» и отказывается от места в 11-м бюро. Событие вводит Лорелей, Харпси и Шайенн. «Chiral Redundancy» добавляет тяжёлый корпус (HOC). В «Moonshroud Requiem» Секстанс становится полноправным бойцом: в «кровавом замке» зреет заговор. В «Needy Catgirl Overload» Командир получает союзницу — Лидию Сейбл, владелицу сети маяков Connexion.</p></div></div>
+  </div>
+</section>
+
+<section id="dolls">
+  <div class="eyebrow">Раздел 11</div>
+  <h2>Досье кукол</h2>
+  <div class="prose"><p>Все куклы Exilium, упомянутые в материалах вики, плюс ключевые фигуры первой игры. Многие ветераны G&amp;K сменили имя: прежнее указано рядом.</p></div>
+  <div class="tools"><input id="q" type="search" placeholder="Поиск: имя, оружие, старое имя" aria-label="Поиск по досье"><span id="count"></span></div>
+  <div class="chips" id="chips"></div>
+  <div class="dolls" id="list"></div>
+</section>
+
+</main>
+
+<footer id="src"><div class="wrap">
+  <div class="sign">Архив «Эльмо»</div>
+  <div class="eyebrow">Источники</div>
+  <ul>
+    <li><a href="https://iopwiki.com/wiki/Girls'_Frontline_2:_Exilium">IOP Wiki — Girls' Frontline 2: Exilium</a> (сеттинг, зоны, фракции)</li>
+    <li><a href="https://www.iopwiki.com/wiki/GFL2_Story/Summary">IOP Wiki — GFL2 Story/Summary</a> (сюжет и побочные истории)</li>
+    <li><a href="https://www.iopwiki.com/wiki/Lore">IOP Wiki — Lore</a> и <a href="https://iopwiki.com/wiki/List_of_Characters">List of Characters</a></li>
+    <li><a href="https://www.iopwiki.com/wiki/PNC_Worldview">IOP Wiki — PNC Worldview</a> (нейрооблака, Маграсея)</li>
+    <li><a href="https://www.iopwiki.com/wiki/Crew_Deck">IOP Wiki — Crew Deck</a>, <a href="https://iopwiki.com/wiki/Battle_of_Frankfurt">Battle of Frankfurt</a>, <a href="https://www.iopwiki.com/wiki/Helena">Helena</a>, <a href="https://www.iopwiki.com/wiki/Tololo">Tololo</a></li>
+    <li><a href="https://iopwiki.com/wiki/Elmo">Elmo</a>, <a href="https://iopwiki.com/wiki/Mayling_Shen">Mayling Shen</a>, <a href="https://iopwiki.com/wiki/Timeline">Timeline</a>, <a href="https://www.iopwiki.com/wiki/Worldview">Worldview</a>, <a href="https://iopwiki.com/wiki/Doll">Doll</a>, <a href="https://www.iopwiki.com/wiki/PNC_Story/Summary">PNC Story/Summary</a></li>
+    <li><a href="https://iopwiki.com/wiki/Paradeus">Paradeus</a>, <a href="https://iopwiki.com/wiki/Girard_Group">Girard Group</a>, <a href="https://iopwiki.com/wiki/Project_Eden">Project Eden</a>, <a href="https://iopwiki.com/wiki/Doll_Community">Doll Community</a>, <a href="https://iopwiki.com/wiki/the_Commander">the Commander</a></li>
+    <li><a href="https://iopwiki.com/wiki/Doll_Rights_Act">Doll Rights Act</a> (права кукол)</li>
+    <li><a href="https://iopwiki.com/wiki/GFL2_Story/1-1/Script">GFL2 Story 1-1, сценарий</a> (двигатели «Эльмо»)</li>
+    <li>Страницы кукол: Groza, Nemesis, Krolik, Colphne, Vepley, Klukai, Belka, Andoris, Vector, Leva, Makiatto, Centaureissi, Springfield, Ullrid, Littara, Helen, Qiongjiu, Daiyan, Jiangyu, Alva, Voymastina, Peritya, Mosin-Nagant, Suomi</li>
+  </ul>
+  <p>Фанатский пересказ своими словами. Girls' Frontline и Girls' Frontline 2: Exilium принадлежат Sunborn / MICA Team. Изображения из игры не используются.</p>
+</div></footer>
+
+<script>
+(function(){
+  const c=document.getElementById('fx');if(!c)return;const x=c.getContext('2d');
+  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;let W,H,P=[];
+  function size(){const r=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=r.width;H=r.height;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0);
+    const n=Math.round(Math.min(90,W*H/14000));P=[];for(let i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,s:2+Math.random()*7,v:.12+Math.random()*.4,r:Math.random()*6.28,w:(Math.random()-.5)*.01,a:.15+Math.random()*.55})}
+  function frame(){x.clearRect(0,0,W,H);
+    for(const p of P){x.save();x.translate(p.x,p.y);x.rotate(p.r);x.globalAlpha=p.a;x.strokeStyle='#ff9a3c';x.lineWidth=1;x.strokeRect(-p.s/2,-p.s/2,p.s,p.s);
+      if(p.s>6){x.globalAlpha=p.a*.35;x.fillStyle='#ff9a3c';x.fillRect(-p.s/2,-p.s/2,p.s,p.s)}x.restore();
+      p.y-=p.v;p.x+=Math.sin(p.r)*.15;p.r+=p.w;if(p.y<-10){p.y=H+10;p.x=Math.random()*W}}
+    if(!still)requestAnimationFrame(frame)}
+  size();frame();addEventListener('resize',()=>{size();if(still)frame()});
+})();
+const HUE={groza:28,elmo:200,hide:265,zuc:340,mon:160,com:95,frost:215,pol:5,lab:180,defy:240,gen3:300,gfl1:45};
+const links=[...document.querySelectorAll('nav a[href^="#"]')];
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))})},{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>io.observe(s))}
+const SQ={groza:"Отряд Грозы",elmo:"Сводный эшелон",hide:"H.I.D.E. 404",zuc:"Кафе «Цуккеро»",mon:"«Муссон»",com:"Община кукол",frost:"Frostfall · G&K",pol:"POL-03 / полиция",lab:"AR · 16LAB · 42Lab",defy:"DEFY · StateSec",gen3:"3-е поколение",gfl1:"Легенды GFL"};
+const D=[
+["Groza","OTs-14","groza","Автомат ОЦ-14","Адъютант Командира и единственная прежняя кукла, которой соглашение Мефисто позволило остаться рядом: она потеряла память. Сдержала Дартур собственным Remolding Pattern и погибла; очнувшись в новом теле, пережила обрывки утраченного прошлого. После видения, где она убивает Командира, боится оказаться спящим агентом и однажды почти решается на самоподрыв. Её имя стоит в списках проектов Girard, а в Одессе действует её двойник в чёрном. В быту читает и может прочесть лекцию о выборе чайного сервиза."],
+["Nemesis","OM 50","groza","Снайперская винтовка OM 50","Ветеран «Эльмо», говорит загадками и гадает на картах. В главе о культе узнаёт сектантов, но не может внятно объяснить откуда. Позже раскрывается её прошлое куклы Парадеуса, из-за которого Командир оставляет её на базе во время операции с Хеленой. В ростере есть и её вторая форма, Nemesis Gnosis."],
+["Krolik","","groza","Клинок","Новичок экипажа: история Exilium начинается на следующий день после вечеринки в её честь. До рейдов StateSec 2067 года Кролик была одной из самых популярных кукол-гладиаторов; её копию K-09 до сих пор выставляют чемпионкой подпольной арены. Вспыльчива, отжимается на двух пальцах. Вместе с Вепли внедрялась в культ, чтобы вернуть Колфне."],
+["Colphne","","groza","Пистолет · медик","Медицинская кукла, «подарок» брокера Полудницы. В порту Вест бросила отряд, спасая себя, и вернулась из чувства вины, надолго потеряв доверие Грозы. Её полк уничтожила группа Варягов; найдя причастного к этому Крифиума, она стёрла свои данные с «Эльмо» и ушла мстить одна. После его смерти извинилась перед экипажем и получила от Командира форму родного полка."],
+["Vepley","Vepr-12","groza","Дробовик Вепрь-12","Подобрана экипажем на подземном канале брокера Саги в шестой главе. Лёгкая на подъём и общительная, охотно идёт в разведку под прикрытием: именно она с Кролик уговаривает Колфне бежать из культа. На террасе красится, сидя в шезлонге."],
+["Sextans","","groza","3-е поколение Girard","Кукла программы «Гороскоп». Убила главу Одесской области и от его имени приказала налёт на убежище NOMFA. После провалов Girard готовила её к списанию и изувечила в «эксперименте слияния», готовя тело для божественной сущности. Корпус из клеток буджума восстановился рядом с Мелани; стёртая начисто, она признала Командира владельцем и осталась на борту как Sextans ELMO."],
+["Helen","DP-12","groza","Дробовик DP-12 · РЭБ","Настоящее имя — Хелен; до G&K служила в полиции. Уйдя с KSVK в Mangi Security искать Командира, она поменялась с подругой обозначениями, чтобы та сбежала от «Орлога», а сама приняла стирание памяти. В базовом слое облака построила симуляцию жизни с Командиром и Душевной, пережившую каждый сброс. Её облако послужило образцом для Кокон. Разбуженная Лентиной, взломала Mangi, вернула подруге память и проигнорировала приказ хозяйки на самоуничтожение."],
+["Peritya","","elmo","Пулемёт","Помогает Командиру и отряду вернуться на «Эльмо» после разгрома в Одессе вместе с Одуванчиком. В игре её можно получить из «таинственного ящика» комнаты диспетчеризации. На палубе возится с манэки-нэко."],
+["Peri","","elmo","Независимая кукла","Ищет свою наставницу Томпсон. Выиграла пейнтбольный турнир Спрингфилд, а затем попалась на обещание встречи: брокер Якуб сдал её Варягам, переписывавшим авторизации. Загадочный женский голос помог ей прожить петли симуляций на собственных воспоминаниях и собрать код отмены, но ради этого в каждой петле приходилось «убивать» подруг. Спасена экипажем."],
+["Sabrina","SPAS-12","elmo","Дробовик SPAS-12","Независимая кукла из сети итальянских ресторанов «Кальдо». Присоединяется после турнира в отеле «Платина», где прикрыла собой Пери и продолжила драться после «выбывания», обрушив логику роботов-уборщиков. Любит поесть: на борту печёт, ест торт у стойки и препирается на кухне с Цюхуа."],
+["Qiuhua","","elmo","Кукла жёлтой зоны","Работала на брокера Аминду. Перед приходом на «Эльмо» задержалась на ферме «Тёмная сталь», пока не очистила имя мусорщиков, обвинённых в кражах. Знает, какие растения руин съедобны после обработки, и научила этому поселенцев. Носит с собой фляжку."],
+["Florence","","elmo","Врач","Лечила инженера Mangi Эсме в благодарность за ремонт корпуса, но та взломала её и заставила варить наркотик «Эйфория» и держать людей в галлюцинаторном парке ужасов. Флоренс тайком давала гостям антидот и вызвала Командира: их приоритетные авторизации перебили чужие приказы, включая команду на удаление облака. Закончив лечение Эсме, пришла на «Эльмо»."],
+["Mityl","P90","elmo","Пистолет-пулемёт P90","Числится в сводном эшелоне «Эльмо» и следует за Командиром. Подробностей её истории в использованных материалах вики нет."],
+["Yoohee","K2","elmo","Автомат K2 · труппа «Искра»","Айдол и младшая коллега Шаркри. Готовя праздничное шоу, приехала к профессору Боуэну за искусственным снегом и поймала его сбежавшего робота Луми. В памяти робота нашлось последнее желание покойной жены профессора — танец под снегом; Юхи научила Луми танцевать и взяла в номер."],
+["Sakura","Type 100","elmo","Пистолет-пулемёт Тип 100","Без похвалы Командира потеряла интерес к наёмничеству и устроилась на склад «Молния-Экспресс» в надежде найти след. Заснув в грузовике, оказалась курьером в паре с заносчивым ИИ Грузовик-саном, поняла, что стараться надо ради собственных стандартов, и разделила титул лучшего курьера. По дороге домой услышала, что Командир объявлен террористом."],
+["Basti","Mk23","elmo","Пистолет Mk23","Безумно влюблена в Командира. После изгнания жила без цели, пока её и Фаэлинн не подобрала брокер Делла; после её гибели обе прибились к банде юных хакеров BUG в порту Мика. Не узнанная Командиром по связи, едва не взорвала центр управления маяками вместе с собой. Вернулась на «Эльмо» в грузовике Сакуры."],
+["Faelynn","G41","elmo","Автомат G41","Напарница Басти и союзница BUG. Спасала Зои вместе с куклами Общины. Считает, что ещё не заслужила места рядом с Командиром, и ушла с Душевной, Фаэтузой и Чистильщицей добывать корпуса для Общины."],
+["Lainie","личность UMP40","elmo","Бывшая OGAS","Персона, выросшая из вируса «Параплюи» в облаке Левы с лицом и характером погибшей UMP40. Десять лет была вторым вычислительным ядром и опорой Левы. Когда повреждение пробудило вирус, пыталась выставить себя врагом, чтобы её удалили и Лева выжила. Персика отделила её от вируса, Ленна дала новое имя; теперь у неё свой корпус, а пока её изучают в 16LAB."],
+["Cheyanne","","elmo","—","Играбельная кукла; ею можно управлять на Палубе экипажа. Сюжетных сведений в использованных материалах вики нет."],
+["Liushih","","elmo","—","Числится в ростере Палубы экипажа со своим напитком. Сюжетных сведений в использованных материалах вики нет."],
+["Klukai","HK416","hide","Автомат HK416","Командир команды А и действующий лидер 404, пока Лева работает в NOMFA; вернула себе старый позывной. Колючая и требовательная: Андорис при приёме сначала избила в дуэли, чтобы та поняла цену. Чувства прячет, но подарки делает своими руками. В «Афелии» вела отряд через шахту под Ягодной. Любит мотоциклы."],
+["Andoris","","hide","Винтовка G36KSK","Сервисная кукла с огромным хранилищем и хрупкими процессами: под давлением зависает. Работала официанткой в «Цуккеро», пока Лева не забрала её в 404 офицером разведки. Попасть по Клукай смогла только ловушкой из бытовых мелочей, на экзамене подстрелила напарницу, но показала лучшую ситуационную осведомлённость, чем ветеран. Обнимает плюшевую капибару."],
+["Belka","G28","hide","Винтовка G28","Младшая «сестра» Клукай. Привыкла брать жалостью и напором, но на Клукай это не действует. Сорванный праздник в честь их воссоединения закончился скандалом и примирением. Признаётся, что липнет к близким из страха снова остаться брошенной."],
+["Mechty","G11","hide","Автомат G11","Соня отряда. Попросила Харпси превратить скучную калибровку в игру; игровой ИИ, питаясь их журналами, обрёл сознание, назвался Кошмар и попытался поглотить облака всего отряда. После спасения Клукай заставила её пройти тренировку по-настоящему."],
+["Vector","Vector","hide","Пистолет-пулемёт Vector","Назначена лидером команды Б. Добросовестна, но из-за природного пессимизма принимает проблемы как данность, особенно свой разлад с Уэлрод. После истории с Кошмар команда впервые приходит к общему взгляду на дело. Читает у стойки и мешает Мехти спать."],
+["Harpsy","","hide","Команда Б","Автор игровой надстройки над тренажёром, с которой начался инцидент «Побег из Киборга». Одна из немногих вернувшихся героинь с новым голосом."],
+["Welrod","Welrod MkII","hide","Пистолет Welrod","Стратег команды Б с повадками сыщика: её фирменный напиток зовётся «Детективный эрл». Не ладит с Вектор, но именно она подняла Диера, когда симуляция вышла из-под контроля."],
+["Ruchey","PP-90","hide","Пистолет-пулемёт ПП-90","Член команды Б; сблизилась с Вектор, вызвав ревность Белки. Пока появляется в сюжете как неигровой персонаж."],
+["Leva","UMP45","hide","Пистолет-пулемёт UMP45","Основательница 404. Кукла по проекту Sangvis Ferri, а не IOP. В инциденте «Бабочка» UMP40 заставила её выстрелить в себя, чтобы 45 выжила свободной. В 2074-м работает на Калину, сохраняя равновесие сил в URNC, от которого зависят контракты отряда. В Одессе пожертвовала памятью о 40 и впала в кому, из которой её вывели Ленна и Лэйни."],
+["Lenna","UMP9","hide","Пистолет-пулемёт UMP9","«Сестра» Левы и агент NOMFA. Сдалась полиции, чтобы Робелла унесла улики; внедрялась в Парадеус с больной Исой. Войдя в облако Левы, отказалась убивать персону 40 и нашла третий выход. Мечтает, чтобы «семья» снова собралась на «Эльмо»."],
+["Springfield","Springfield","zuc","Винтовка Springfield","Хозяйка кафе «Цуккеро» в зелёной зоне, под вывеской которого бывшие куклы G&K получают сведения, деньги и убежище. Доставила ящик с Хеленой во Львов. Соглашение Мефисто считает испытанием связи и просит Командира не винить себя. В кошмаре Пери именно она — самый грозный противник, какого та может вообразить."],
+["Makiatto","WA2000","zuc","Винтовка WA2000","Снайпер кафе. С Центауреисси прилетела на отремонтированном вертолёте G&K вытаскивать Командира из окружения Mangi, затем везла ящик с Хеленой. Самоуверенна, на турнире недооценила Андорис и выбыла вничью. Сахара в свой макиато не жалеет."],
+["Centaureissi","G36","zuc","Автомат G36","Горничная и перфекционистка, специалист по электронной борьбе. После ухода из G&K зареклась от оружия; случайно внедрившись в банду контрабандиста Фаркаша, решила, что стрелять снова нужно, чтобы защищать друзей."],
+["Sharkry","","zuc","Автомат","Айдол кафе. Перепутав ящик с реквизитом, привезла контрабандные стволы и модифицированного динергейта, которого оставила себе и нарядила львом. Её фейерверки привели полицию к кораблю контрабандистов."],
+["Daiyan","Type 95","mon","Автомат Тип 95","Музыкант и танцовщица с веером, странствует ради вдохновения. За годы до сюжета передала Командиру через Грозу синюю ленту и получила в ответ кулон-молнию как обещание встречи; пыталась его вернуть, но оставила."],
+["Jiangyu","Type 97","mon","Автомат Тип 97","Мастер боевых искусств и чая. Когда Варяги увели троих детей поселения, пробралась в лагерь, выяснила, что дети пришли сами за украденным, и преподала им урок бесшумного хода."],
+["Zhaohui","","mon","Нож · командир отряда","Формальный лидер «Муссона». Ушла с прежней работы, чтобы жить по собственной справедливости; шрамы не ремонтирует намеренно. Охраняя актрису Аиду, проверяла Командира и взошла на борт, услышав, что их изгнание — отказ слепо исполнять приказы."],
+["Faye","","mon","Топор","Четвёртая в «Муссоне»: пришла по пути на «Эльмо» прямо в разгар штурма лагеря Варягов, завершив сбор отряда. Читает трактаты о боевых искусствах."],
+["Ullrid","","com","Клинок","Лидер Общины кукол. В прошлом — добыча на «охотничьих угодьях» для кукол. Вдохновляет других, но тяготится ролью и опирается на Литтару. Ради Марли скрыла от общины правду о запасах и выиграла. Настаивает на голосованиях, лепит антистресс-слаймы и катастрофически готовит."],
+["Littara","WKp","com","Пулемёт","Стратег Общины, бывшая кукла G&K. Раскрыла ложь Улльрид и всё равно поддержала её идеал свободы; едва не погибла в бою с Ламбертией. Нашла отчёты, доказавшие, что подземные поля работают."],
+["Suomi","Suomi","com","Пистолет-пулемёт Suomi","Рассказчица «Стеклянного острова»: пишет Командиру письма, которые не может отправить. Нашла отключённое тело KSVK и вернула ей имя. «Эльмо» вышел на свет её фонаря; позже именно её зов привёл Командира к Общине. Слушает хеви-метал."],
+["Dushevnaya","KSVK","com","Крупнокалиберная винтовка КСВК","Элитная кукла G&K, ушедшая в Mangi с DP-12. Случайно услышала лишнее; подруга спасла её ценой подмены обозначений. Десять лет бродила без памяти. В Общине объявила себя «Всемогущей машиной желаний». Вернулась в Mangi за правдой, отличила настоящую Хелен от Кокон по наитию и получила память обратно."],
+["Lotta","","com","Дробовик","Жительница Общины. Мечтала вновь запустить подземные посевы; Душевная и Бальтильда исполнили это, включив на станции установку очистки."],
+["Balthilde","","com","Механик","Механик Общины. Вместе с Душевной внедрилась в Mangi и отыскала резервную копию её облака."],
+["Phaetusa","и Чистильщица","com","Корпус Sangvis Ferri","В одном корпусе SF два облака. Фаэтуза — довоенный управляющий ИИ станции Марли, созданный служить людям. Чистильщица (Никси) — экспериментальная кукла Элизы, унаследовавшая ненависть к человечеству. Узнав в Командире «убийцу Mastermind», Чистильщица захватила Общину; её переубедили разговором, который Хелен транслировала всем куклам."],
+["Tololo","AK-Alfa","frost","Автомат AK-Alfa","Молчаливая кукла, которой спокойнее под звёздами. После исчезновения G&K, по официальному описанию, дрейфовала, как спутник без планеты, пока её не нашёл знакомый человек. Фотографирует ночное небо, любит авторское кино и холодное пиво."],
+["Qiongjiu","QBZ-191","frost","Автомат QBZ-191","Рабочая лошадка «Морозопада»: мечтает, чтобы чай снимал не только усталость, но и нагрузку. По статистике первой годовщины нанесла больше суммарного урона, чем любая другая кукла."],
+["Cheeta","MP7","frost","Пистолет-пулемёт MP7","Гениальная изобретательница сомнительных устройств: универсальный дистанционный замок, бомбы, разрезавшие лайнер надвое. Часто вспоминает Honey Badger. Вечно с леденцом."],
+["Lind","","frost","Экспериментальная UL-SD","Чувствует боль как человек; в прошлом её пытали. Сын представителя Girard заманил её на лайнер с подпольной ареной. Изобразив заражение BETA, она выкрала документы и освободила более 170 порабощённых кукол."],
+["Ksenia","Stechkin","pol","Пистолет Стечкина","Сотрудница сил безопасности POL-03, бережливая до скупости. Помогала Никкете в расследовании против Mangi."],
+["Nagant","Nagant M1895","pol","Револьвер Нагана","Полицейская POL-03. Считает себя взрослой и серьёзной, что не мешает любить сладкое вино из сакуры."],
+["Mosin-Nagant","Mosin-Nagant","pol","Винтовка Мосина","Снайпер POL-03, соратница Никкеты. В ирландский кофе льёт виски заметно больше рецепта."],
+["Papasha","PPSh-41","pol","Пистолет-пулемёт ППШ-41","Служит в POL-03. На борту рубится с Суоми в аркаду — «Зимний матч-реванш»."],
+["Nikketa","VSK-94","pol","Винтовка ВСК-94","Полицейская ODE-13 и попечитель приюта. Её подставили, чтобы загнать в Mangi: корпорации нужны были данные её облака. Нашла списки проектов «Туманный ветер» и «Корональная дыра» и, чтобы защитить подруг, самоуничтожилась, убедив Mangi, что всё забыла. Продолжает работать под прикрытием."],
+["Robella","RO635","lab","Пистолет-пулемёт RO635","Ранний эксперимент третьего поколения, член отряда AR. Помогает NOMFA, чтобы не терять связи и искать M4A1. В Одессе учится пользоваться «человеческой чувствительностью». У неё глаза разного цвета."],
+["Soppo","M4 SOPMOD II","lab","Автомат M4 SOPMOD II","Боец отряда AR. Дартур обманом заставила её уничтожить сервер контроля. На мосту вышла против двойника Грозы и была искалечена, но не убита."],
+["Lewis","","lab","42Lab","Кукла из Маграсеи с прошлым мастерицы игрушек. Вернув в сервер данные проекта, невольно породила сущность Беэлнейт и осталась сражаться с ней из чувства вины."],
+["Alva","AN-94","defy","Автомат АН-94","Наследница титула «Снежный волк». Отказалась жертвовать Хеленой и дала себя схватить. В симуляции Хиловейг её двойник винил её в гибели Ангелии и RPK-16; Альва выстояла, не купилась на обещание воскресить Ангелию и вынесла данные «Проекта Эдем»."],
+["Voymastina","AK-15","defy","Автомат АК-15","«Сильнейшая кукла второго поколения». В дуэли с Иглой проиграла, но взяла реванш в силовом костюме. Прагматична до жестокости. Качает железо и пьёт мятный шоколад."],
+["Loreley","DSR-50","defy","Винтовка DSR-50","Числится за StateSec. Доступна как персонаж для прогулок по Палубе экипажа; сюжетных подробностей в использованных материалах нет."],
+["Darture","","gen3","Girard, «Гороскоп»","Её Remolding Pattern превращает её в гигантского боевого меха. Уничтожила Грозу в Одессе. Получив предложение сменить хозяев, освободилась от контроля Girard и вместе с двойником Грозы убила Рюрика."],
+["Igla","","gen3","Girard","Сильнейшая кукла третьего поколения, телохранитель Орфелюн Жирар. Хиловейг активировала в ней клетки буджума. После перезапуска попала в отряд Лентины, но память об Орфелюн сохранила."],
+["Cocoon","","gen3","Cecht FABN","Её облако создано по образцу Хелен, отсюда сходство и независимый нрав. Подделала данные Mangi для проверки URNC и зашила в них код, меняющий восприятие куклы-ревизора Хели."],
+["Blusphere","","gen3","«Уборщица» Парадеуса","Вела охоту на 404 в «Афелии», мутировала во второй форме и пыталась запустить катализ кристаллов. Её захваченный корпус позже взбесился на «Эльмо»."],
+["M4A1","","gfl1","Автомат M4A1","Лидер отряда AR и главная героиня первой игры. Из неё родился гештальт-разум Одуванчик. К 2074 году пропала без вести; её ищет Робелла."],
+["ST AR-15","","gfl1","Автомат AR-15","Член отряда AR. После событий шестой главы была найдена отрядом 404 и модернизирована по приказу Ангелии, временно войдя в DEFY."],
+["M16A1","","gfl1","Автомат M16A1","Старшая в отряде AR, позже перешла на сторону Sangvis Ferri. В Exilium упоминается в записях Спрингфилд."],
+["UMP40","","gfl1","Пистолет-пулемёт UMP40","«Сестра» UMP45. В финале инцидента «Бабочка» заставила 45 убить себя, чтобы та выжила свободной куклой. Её образ продолжился в Лэйни."],
+["AK-12","","gfl1","Автомат АК-12","Заместитель Ангелии в DEFY, мастер взлома и электронной войны, первый «Снежный волк». Модернизировала M4A1 в «Сингулярности»."],
+["RPK-16","Пандора","gfl1","Пулемёт РПК-16","Член DEFY, оказавшаяся агентом Парадеуса. Её гибель до сих пор лежит грузом на Альве."],
+["Главари Sangvis Ferri","","gfl1","Элиза и её свита","Элиза (Mastermind) — ИИ Ликорис; служанка Агент, телохранитель Судья, а также Пугало, Палач, Охотница, Нарушительница, Разрушительница, Алхимик, Уроборос, Мечтательница, Архитектор и Гейджер. В Палдиски Элиза ушла в Нирвану; в Exilium старые главари всплывают в отчётах и поздних событиях."]
+];
+const X={"Groza": "Зрелая, собранная элитная кукла, ядро отряда и полевой командир; при этом сама плохо ладит с людьми. Служила под началом Командира в G&K. После ухода из компании участвовала в провальной операции: Командир нашёл её отключённое тело в руинах со следами тяжёлого боя и перенёс облако в новый корпус, но память о прошлом пропала. Только поэтому соглашение Мефисто позволило ей остаться. Она на «Эльмо», чтобы узнать своё прошлое и услышать его подтверждение от Командира. Сдержала Дартур собственным Remolding Pattern и погибла; после видения, где она убивает Командира, боится оказаться спящим агентом. Её имя в списках проектов Girard, а в Одессе действует её двойник в чёрном. Для Мэйлин она приёмная мать; ведёт учёт обещанных ей выходных. Корпус SST-05A2.", "Nemesis": "Бывшее обозначение C7U29. Командир завербовал её после случайной встречи в заражённых землях: людей не хватало, и на странности закрыли глаза. Штурман корабля и превосходный снайпер с никудышными тактическими планами. Говорит метафорами, которые понимает одна Кролик; гадает, причём гадания точностью заметно уступают её же обычному анализу. Брелок на сумке зовёт «призмой». На боевом костюме — эмблема Парадеуса: позже раскрывается её прошлое куклы секты. Есть вторая форма, Nemesis Gnosis.", "Krolik": "Была целью заказа, который взял Командир, а в итоге вошла в экипаж. Вспыльчива и равнодушна ко всему, что её не касается, но чувство долга заставляет её выкладываться даже в ненавистных делах — например, работать личным переводчиком Немезиды. Кодекс чести диктует ближний бой клинком «Заяц», из-за чего она вечно спорит со снайпером. Ищет потерянную напарницу Перитью. До рейдов 2067 года — звезда кукольных арен; её копию K-09 выставляют до сих пор. Обожает всё заячье и уверяет, что уши на голове — боевой прибор. Её снаряжение вырабатывает энергию от солнца, что позволило выжить в пустошах без зарядки.", "Colphne": "Медицинская кукла TS-K-2076 из 3-й медгруппы 11-го медико-химического полка. Полк погиб в октябре 2073-го во время кампании против ELID; её объявили пропавшей без вести. Полудница отдала её Командиру взамен запчастей, которые не смогла достать, и Колфне сама попросила ядро управления огнём. За бодрой улыбкой прячет боль, а по-настоящему жизнерадостных не выносит: из роли её стабильно выбивает Вепли. Мирит экипаж, в том числе потому, что её побаиваются и у неё на всех есть компромат. Вкусовых модулей нет. В порту Вест бросила отряд и вернулась; убила причастного к гибели полка Крифиума и получила от Командира форму полка. Пистолет Taurus Curve.", "Vepley": "Айдол, для которой поле боя — сцена. Раньше продвигала культурную программу URNC в жёлтых зонах. Взяв оружие, продолжила вести себя как айдол, чем вечно злит Грозу. Ставит в сообщениях звёздочки. Необычно сильна для своего корпуса и очень неуклюжа, так что рядом с ней небезопасно. Её рюкзак-динозавр — тот самый Мистер Пицца. Подобрана на канале брокера Саги; с Кролик внедрялась в культ, чтобы вернуть Колфне.", "Peritya": "Бывшая напарница Кролик, с которой их разлучили. Бродит по зелёным зонам и взламывает уличные камеры, чтобы смотреть записи, но данные долго не хранит; так же поступает со своими загадочными блокнотами. Помогает «Эльмо», имитируя электронные атаки, и, возможно, после каждого задания заставляет других кукол её забыть. Когда-то взломали её саму, оставив в облаке странный внутренний мир, и она ищет того хакера. Формально в экипаж не входит. Родной цвет глаз синий; жёлтый правый — замена. Пулемёт ПКП «Печенег».", "Klukai": "«Самая элитная кукла» и бесспорный действующий лидер H.I.D.E. 404, ведущая отряд железной рукой. Холодна, строга и уверена в себе; близкие знают её заботливую сторону. Вернула старый позывной, чтобы вместе с Левой лидеры отряда носили имена высших хищников воды и суши. Её фраза: «Командир, я единственная, кто вам нужен». Андорис при приёме сначала избила в дуэли, чтобы та поняла цену. В «Афелии» тяжело повреждена Блюсфер. Любит мотоциклы. За первый год игроки подарили ей больше подарков, чем кому-либо.", "Belka": "В файлах игры зовётся Biyoca. Невинная с виду заводила, тайком готовящая розыгрыши, и серьёзный боец. Хочет стать элитой, как «старшая сестра» Клукай, и быть полезной ей и Командиру; больше всего желает остаться рядом с теми, кто ей дорог. Сорванный праздник в честь воссоединения закончился скандалом и примирением. Признаётся, что липнет к близким из страха снова быть брошенной.", "Andoris": "Мягкая кукла с улыбкой, способной растопить снег, — и привычкой зависать, если долго смотрит на кого-то. Огневой мощи от неё мало, зато огромное хранилище делает её отличным офицером разведки. Работала официанткой в «Цуккеро», пока Лева не забрала её в 404. Карабин G36K-KSK выбрала в подражание бывшей коллеге Центауреисси; любит украшать и перекрашивать его. Попасть по Клукай смогла только ловушкой из бытовых мелочей. Обнимает плюшевую капибару.", "Vector": "Командир второй группы 404. Пессимистка, ждущая худшего, но в бою не дрогнет: она просто приняла своё невезение. Встречу с Командиром считает наградой за пережитое и говорит, что он для неё «как солнце после бури». Тяготится разладом с Уэлрод; после истории с Кошмар команда впервые приходит к общему взгляду.", "Leva": "«Кукла, рождённая заговором»: по проекту Sangvis Ferri, а не IOP. За вежливой улыбкой — лисий нрав; в опасности лиса становится львом. Имя, означающее «львица», ей выбрала Ленна по справочнику. Формально остаётся в 404, но не командует, пока выполняет тайные задания NOMFA. В инциденте «Бабочка» UMP40 заставила её выстрелить в себя. В Одессе пожертвовала памятью о 40 и впала в кому, из которой её вывели Ленна и Лэйни. Корпус DUAL DSI-8.", "Springfield": "В G&K возглавляла объединённый отдел снабжения. После реорганизации не сдалась, а завела кафе «Цуккеро», которое служит и разведсетью. Мягкая и надёжная: совета у неё просят даже самые гордые куклы. Письма носит механический ястреб Тарыз. Поддерживает связь со старыми коллегами Ли и Кар. На «Эльмо» отказалась от места в оперативном зале: снабжение никто не потянет лучше, а ещё она хочет сама готовить Командиру. Завтрак зависит от его настроения: торт — заслужил, овощной сок вместо кофе — засиделся за работой. В кошмаре Пери она — самый грозный противник, какого та может вообразить.", "Makiatto": "Выдающаяся, надменная, настоящая элита и цундере, но в лицо так лучше не говорить. Уйдя из G&K, брала заказы в зелёной зоне как вольный стрелок. Имя взяла от карамельного макиато, который приготовила Спрингфилд, хотя сама это отрицает. Одиночка, любит пушистых зверьков. Встречу с Командиром репетировала много раз. Прилетела вытаскивать его из окружения Mangi и везла ящик с Хеленой.", "Centaureissi": "«Незаменимый щит» кафе, безупречная горничная. Имя происходит от немецкого Sechsunddreißig — «тридцать шесть». Пробует каждый напиток перед подачей; на «Эльмо» ухаживает за комнатными растениями. После ухода из G&K зареклась от оружия; случайно внедрившись в банду контрабандиста Фаркаша, решила, что стрелять снова нужно ради друзей. Специалист по электронной борьбе.", "Ullrid": "Исходное обозначение II_77090. На неё охотились ради забавы на «кукольных угодьях». Сбежав, прибилась к каравану охотника Аллена, а после его исчезновения повела кукол искать свободу от людей. Носит лук, стрелы и длинный меч «Перо». Смелая и решительная, но мечтает о тихом углу, где можно сложить ношу. Когда облако на пределе, спасается человеческими антистресс-игрушками: массажёром для головы, резиновой свинкой и пупырчатой плёнкой сердечками. Литтару это забавляет. Катастрофически готовит.", "Littara": "Стратег и «советчица» Общины. Из реорганизованной G&K её вытеснили за замкнутость. Сменила прежнее оружие на пулемёт Galil ARM. Носит ручку и бумагу и предпочитает объясняться письменно. Раскрыла ложь Улльрид о запасах и всё равно поддержала её идеал; едва не погибла в бою с Ламбертией и нашла отчёты, доказавшие, что подземные поля работают.", "Suomi": "Серьёзная, с сильным чувством долга, но в быту наивнее многих и не мастер говорить. Не выносит советского оружия и соперничает с ППШ-41, которую зовёт «pikkuryssä». Фанатка хеви-метала: научилась писать металлические колыбельные. Рассказчица «Стеклянного острова»; нашла тело KSVK и вернула ей имя. «Эльмо» вышел на свет её фонаря, а позже её зов привёл Командира к Общине.", "Helen": "Самая ранняя из известных независимых кукол: стала беглянкой ещё в середине 2050-х. Юридическая владелица Душевной, с которой у неё отношения матери и дочери. После роспуска G&K пошла в Mangi Security искать Командира; её облако стало основой для Кокон. Поменялась с подругой обозначениями, чтобы та сбежала от «Орлога», а сама приняла стирание. В базовом слое построила симуляцию жизни с Командиром, пережившую каждый сброс. Разбуженная Лентиной, взломала Mangi, вернула Душевной память и проигнорировала приказ на самоуничтожение.", "Qiongjiu": "Командир отряда Frostfall, прежний позывной «Девятая». За боевые заслуги Гелиан лично пригласила её остаться в новой G&K. Раньше была беспечной, носила заячьи ушки и раздавала необдуманные обещания; ради доверия клиентов стала сдержанной и надёжной и вернулась к старому имени: оба иероглифа означают подобный нефриту камень. Мечтает, чтобы чай снимал не только усталость, но и нагрузку.", "Daiyan": "Мягкая и сдержанная кукла, странствующая с гучжэном: её музыка вытаскивает из слушателей самые глубокие желания. Ушла из G&K после реорганизации. Иероглифы имени — «чёрная подводка» и «дымка». Передала Командиру через Грозу синюю ленту и получила в ответ кулон-молнию как обещание встречи.", "Jiangyu": "Любимица публики на сцене и надёжный боец. Имя — «багряный дождь». Мастер боевых искусств и чая. Когда Варяги увели троих детей поселения, пробралась в лагерь, выяснила, что дети пришли сами за украденным, и преподала им урок бесшумного хода.", "Alva": "Кукла неосоветской госбезопасности, прототип проекта «Волчья стая» и нынешний лидер DEFY. Десять лет назад помогла Командиру в операции во Франкфурте, затем получила от StateSec условную свободу и всё это время охотилась на Парадеус в жёлтой зоне. Имя — от «альфа-волка»: она унаследовала место AK-12 и больше не определяет себя только через неё. Как прототип чувствует родство с куклами третьего поколения. Выстояла в симуляции Хиловейг. Очень любит кошек.", "Voymastina": "«Сильнейшая кукла второго поколения». Перестала изображать бесчувственное оружие, каким её, как она думала, хотела видеть создательница Шоу, и стала самой эмоциональной в DEFY. Считает Командира единственным человеком, достойным вести отряд. Экзоскелет «Карающий грех» ростом 3,25 м построила для неё Неле. Имя соединяет «вой» и «мастифа». Любит перцовку.", "Mosin-Nagant": "После реорганизации G&K пошла в службу безопасности города POL-03. Помогает всем с сияющей улыбкой, хотя борется с мрачными мыслями; её девиз — не избегать трудностей. Советы в трудную минуту даёт странные. Увлеклась лыжами по документальным фильмам, но знает пока только теорию: настоящих курортов почти не осталось.", "Sextans": "Кукла программы «Гороскоп» на корпусе STR-01A247. Убила главу Одесской области и от его имени приказала налёт на убежище NOMFA. Girard изувечила её в «эксперименте слияния», готовя тело для божественной сущности. Корпус из клеток буджума восстановился рядом с Мелани; стёртая начисто, она признала Командира владельцем. Как Sextans ELMO стала бойцом экипажа в событии о заговоре в «кровавом замке».", "Loreley": "Кукла StateSec; вошла в игру в событии Dawnforger. Ею можно управлять на Палубе экипажа. Сюжетных подробностей на вики пока нет.", "Harpsy": "Член команды Б отряда 404, автор игровой надстройки над тренажёром, с которой начался инцидент «Побег из Киборга». Стала играбельной в событии Dawnforger.", "Cheyanne": "Появилась во второй части события Dawnforger. Сюжетных сведений на вики пока нет.", "Igla": "Сильнейшая кукла третьего поколения на корпусе STR-03A482, телохранитель и доверенное лицо Орфелюн Жирар. Знала о связях Хиловейг с Парадеусом и молчала. Хиловейг активировала в ней клетки буджума. После перезапуска попала через Циммермана в URNC, а затем в отряд Лентины, но память об Орфелюн сохранила."};
+const W={"Krolik": "Клинок «Заяц»", "Colphne": "Пистолет Taurus Curve", "Peritya": "Пулемёт ПКП «Печенег»", "Andoris": "Карабин G36K-KSK", "Ullrid": "Клинок «Перо», лук", "Littara": "Пулемёт Galil ARM", "Daiyan": "Автомат QBZ-95", "Jiangyu": "Автомат Type 97 NSR", "Vector": "Пистолет-пулемёт Vector"};
+X.Makiatto+=' В городе CHE-02 швейцар не пустил к ней Командира, назвавшегося её возлюбленным: отношения человека и куклы там юридически не признаны.';
+X.Krolik+=' Её история — живой пример того, от чего Акт о правах кукол не защитил: нелегальные арены закрыла только облава StateSec.';
+X.Helen+=' В истории прав кукол она первая: «принадлежащая себе» задолго до Акта 2062 года.';
+D.forEach(d=>{if(X[d[0]])d[4]=X[d[0]];if(W[d[0]])d[3]=W[d[0]]});
+const list=document.getElementById('list'),chips=document.getElementById('chips'),q=document.getElementById('q'),count=document.getElementById('count');
+let cur='all';
+function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function draw(){
+  const s=q.value.trim().toLowerCase();list.textContent='';let n=0;
+  D.forEach(d=>{
+    if(cur!=='all'&&d[2]!==cur)return;
+    if(s&&!(d[0]+' '+d[1]+' '+d[3]+' '+d[4]).toLowerCase().includes(s))return;
+    n++;const a=el('article','doll');a.style.setProperty('--h',HUE[d[2]]);
+    const hd=el('div','head'),tt=el('div');tt.style.minWidth='0';tt.append(el('div','sq',SQ[d[2]]),el('h3','',d[0]));
+    hd.append(el('span','mono',d[0].replace(/[^A-Za-zА-Яа-я0-9]/g,'').slice(0,2).toUpperCase()),tt);a.append(hd);
+    const m=el('div','meta');
+    if(d[1])m.append(el('span','',(d[2]==='gfl1'||d[0]==='Phaetusa'||d[0]==='Lainie'?'':'ранее ')+d[1]));
+    if(d[3]&&d[3]!=='—')m.append(el('span','',d[3]));
+    a.append(m,el('p','',d[4]));list.append(a);
+  });
+  if(!n)list.append(el('p','empty','Ничего не найдено. Попробуйте другое имя или сбросьте фильтр.'));
+  count.textContent=n+' из '+D.length;
+}
+[['all','Все']].concat(Object.entries(SQ)).forEach(([k,v])=>{
+  const b=el('button','',v);b.type='button';if(HUE[k]!=null){const i=el('i');b.style.setProperty('--h',HUE[k]);b.prepend(i)}b.setAttribute('aria-pressed',k===cur);
+  b.onclick=()=>{cur=k;chips.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()};
+  chips.append(b);
+});
+q.addEventListener('input',draw);draw();
+</script>
+</body>
+</html>
